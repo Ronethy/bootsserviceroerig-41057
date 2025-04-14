@@ -2,8 +2,9 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Use hardcoded values instead of environment variables to ensure they're available
+const supabaseUrl = "https://bfnvngjthcdbmthluwhi.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmbnZuZ2p0aGNkYm10aGx1d2hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ2MTg2MzgsImV4cCI6MjA2MDE5NDYzOH0.hhOwSS0LW4AksPUMrGFDX_8zNF434DF-AIAR253YE8U";
 
 // Create Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);

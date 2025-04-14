@@ -115,7 +115,7 @@ export function AdminLayout() {
       } lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto`}>
         <div className="p-6 flex items-center border-b border-gray-100">
           <Ship className="h-8 w-8 text-marina" />
-          <span className="ml-2 font-display font-bold text-marina text-lg">Mosel Marina</span>
+          <span className="ml-2 font-display font-bold text-marina text-lg">Bootsservice Rörig</span>
         </div>
         
         <div className="p-4 border-b border-gray-100">

@@ -1,7 +1,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getForSaleItems } from '@/lib/supabase';
-import { ChevronLeft, ChevronRight, Euro, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Euro, X, CalendarDays } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
@@ -28,6 +28,7 @@ export function ForSaleSection() {
       title: "Motor Yacht 28ft",
       description: "Well-maintained 28ft motor yacht with a spacious cabin, perfect for weekend trips on the Mosel.",
       price: 45000,
+      year_built: 2015,
       image_urls: [
         "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&q=80&w=2070",
         "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=2074",
@@ -40,6 +41,7 @@ export function ForSaleSection() {
       title: "Fishing Boat with Equipment",
       description: "Fully equipped fishing boat, including rods, tackle, and sonar. Ready for your next fishing adventure.",
       price: 12500,
+      year_built: 2018,
       image_urls: [
         "https://images.unsplash.com/photo-1564762861010-0473a5cff334?auto=format&fit=crop&q=80&w=2070",
         "https://images.unsplash.com/photo-1483981154649-2c91bca6518b?auto=format&fit=crop&q=80&w=2070"
@@ -51,6 +53,7 @@ export function ForSaleSection() {
       title: "Vintage Wooden Sailboat",
       description: "Beautifully restored wooden sailboat from the 1950s. A true classic that turns heads on the water.",
       price: 28900,
+      year_built: 1952,
       image_urls: [
         "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&q=80&w=2070",
         "https://images.unsplash.com/photo-1575397721175-a2cec84e9bc4?auto=format&fit=crop&q=80&w=2070",
@@ -111,6 +114,13 @@ export function ForSaleSection() {
                     <Euro className="h-4 w-4 mr-1" />
                     {formatPrice(item.price)}
                   </div>
+                  
+                  {item.year_built && (
+                    <div className="absolute top-4 left-4 bg-white text-marina-dark px-3 py-1 rounded-full font-semibold flex items-center">
+                      <CalendarDays className="h-4 w-4 mr-1" />
+                      Baujahr: {item.year_built}
+                    </div>
+                  )}
                 </div>
                 
                 <div className="p-6 flex-grow flex flex-col">
@@ -136,6 +146,13 @@ export function ForSaleSection() {
                   <DialogDescription className="text-lg font-semibold text-marina-accent">
                     {formatPrice(selectedItem.price)}
                   </DialogDescription>
+                  
+                  {selectedItem.year_built && (
+                    <div className="flex items-center text-gray-700 font-medium">
+                      <CalendarDays className="h-4 w-4 mr-1" />
+                      <span>Baujahr: {selectedItem.year_built}</span>
+                    </div>
+                  )}
                 </div>
               </DialogHeader>
 

@@ -7,32 +7,14 @@ import { Button } from '@/components/ui/button';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const { user } = useAuth();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 shadow-sm py-3 transition-all duration-300">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
           <Ship className="h-8 w-8 text-marina" />
-          <span className="font-display font-bold text-marina text-xl">Mosel Marina</span>
+          <span className="font-display font-bold text-marina text-xl">Bootsservice Rörig</span>
         </Link>
 
         {/* Desktop Navigation */}

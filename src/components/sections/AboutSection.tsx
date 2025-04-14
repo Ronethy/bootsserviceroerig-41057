@@ -16,7 +16,7 @@ export function AboutSection() {
     <section id="about" className="section bg-marina-muted">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="rounded-lg overflow-hidden shadow-xl">
+          <div className="rounded-lg overflow-hidden shadow-xl w-full max-w-full sm:max-w-[80%] md:max-w-[70%] lg:max-w-full mx-auto">
             <img
               src={imageUrl}
               alt="About Mosel Marina"
@@ -27,7 +27,7 @@ export function AboutSection() {
           
           <div>
             <h2 className="h2 text-marina mb-6">
-              {isLoading ? "About Mosel Marina" : aboutContent?.title || "About Mosel Marina"}
+              {isLoading ? "About Bootsservice Rörig" : aboutContent?.title || "About Bootsservice Rörig"}
             </h2>
             
             <div className="prose prose-lg max-w-none">

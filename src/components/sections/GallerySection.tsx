@@ -66,22 +66,6 @@ export function GallerySection() {
     document.body.style.overflow = 'auto';
   };
 
-  // For smaller screens, show the carousel view
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => {
-      window.removeEventListener('resize', checkScreenSize);
-    };
-  }, []);
-
   return (
     <section id="gallery" className="section">
       <div className="container">
@@ -100,21 +84,21 @@ export function GallerySection() {
               <div key={idx} className="bg-gray-200 animate-pulse rounded-lg" style={{ height: '300px' }}></div>
             ))}
           </div>
-        ) : isMobile ? (
-          // Mobile carousel view
-          <div className="px-4">
+        ) : (
+          // Slideshow carousel for all screen sizes
+          <div className="px-4 max-w-4xl mx-auto">
             <Carousel className="w-full">
               <CarouselContent>
                 {displayImages.map((image) => (
-                  <CarouselItem key={image.id} className="md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={image.id}>
                     <div 
-                      className="overflow-hidden rounded-lg shadow-md cursor-pointer transition-all duration-300 h-64 relative"
+                      className="overflow-hidden rounded-lg shadow-md cursor-pointer transition-all duration-300 relative"
                       onClick={() => openLightbox(image.image_url, image.title)}
                     >
                       <img 
                         src={image.image_url} 
                         alt={image.title} 
-                        className="w-full h-full object-cover"
+                        className="w-full h-[400px] object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-marina/80 to-transparent flex flex-col justify-end p-4">
                         <h3 className="text-white text-xl font-semibold">{image.title}</h3>
@@ -129,27 +113,16 @@ export function GallerySection() {
                 <CarouselNext className="relative static right-0 translate-x-0 translate-y-0" />
               </div>
             </Carousel>
-          </div>
-        ) : (
-          // Desktop grid view
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayImages.map((image) => (
-              <div 
-                key={image.id} 
-                className="overflow-hidden rounded-lg shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group"
-                onClick={() => openLightbox(image.image_url, image.title)}
-              >
-                <img 
-                  src={image.image_url} 
-                  alt={image.title} 
-                  className="w-full h-64 object-cover"
+            
+            {/* Image indicators */}
+            <div className="flex justify-center mt-4 gap-1">
+              {displayImages.map((_, idx) => (
+                <div 
+                  key={idx} 
+                  className="h-2 w-2 rounded-full bg-gray-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-marina/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                  <h3 className="text-white text-xl font-semibold">{image.title}</h3>
-                  <p className="text-white/90 text-sm">{image.description}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 

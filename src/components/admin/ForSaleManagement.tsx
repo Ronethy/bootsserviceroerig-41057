@@ -19,6 +19,7 @@ export function ForSaleManagement() {
     title: '',
     description: '',
     price: 0,
+    year_built: new Date().getFullYear(),
     image_urls: [] as string[],
   });
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -116,6 +117,8 @@ export function ForSaleManagement() {
     const { name, value } = e.target;
     if (name === 'price') {
       setFormData(prev => ({ ...prev, [name]: parseFloat(value) || 0 }));
+    } else if (name === 'year_built') {
+      setFormData(prev => ({ ...prev, [name]: parseInt(value) || new Date().getFullYear() }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -179,6 +182,7 @@ export function ForSaleManagement() {
       title: item.title,
       description: item.description,
       price: item.price,
+      year_built: item.year_built || new Date().getFullYear(),
       image_urls: item.image_urls || [],
     });
     setOpen(true);
@@ -195,6 +199,7 @@ export function ForSaleManagement() {
       title: '',
       description: '',
       price: 0,
+      year_built: new Date().getFullYear(),
       image_urls: [],
     });
     setImageFiles([]);
@@ -243,18 +248,33 @@ export function ForSaleManagement() {
                     rows={4}
                   />
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="price" className="text-sm font-medium">Price (€)</label>
-                  <Input 
-                    id="price" 
-                    name="price" 
-                    type="number" 
-                    min="0" 
-                    step="0.01" 
-                    value={formData.price} 
-                    onChange={handleChange} 
-                    required 
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label htmlFor="price" className="text-sm font-medium">Price (€)</label>
+                    <Input 
+                      id="price" 
+                      name="price" 
+                      type="number" 
+                      min="0" 
+                      step="0.01" 
+                      value={formData.price} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="year_built" className="text-sm font-medium">Baujahr</label>
+                    <Input 
+                      id="year_built" 
+                      name="year_built" 
+                      type="number" 
+                      min="1900" 
+                      max={new Date().getFullYear()} 
+                      value={formData.year_built} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="forSaleImages" className="text-sm font-medium">Images</label>
@@ -351,6 +371,7 @@ export function ForSaleManagement() {
                 <TableHead>Title</TableHead>
                 <TableHead className="hidden md:table-cell">Description</TableHead>
                 <TableHead>Price</TableHead>
+                <TableHead className="hidden sm:table-cell">Baujahr</TableHead>
                 <TableHead className="w-[100px] text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -378,6 +399,7 @@ export function ForSaleManagement() {
                         : item.description}
                     </TableCell>
                     <TableCell>{formatPrice(item.price)}</TableCell>
+                    <TableCell className="hidden sm:table-cell">{item.year_built || "-"}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         <Button 
@@ -403,7 +425,7 @@ export function ForSaleManagement() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-10 text-gray-500">
+                  <TableCell colSpan={6} className="text-center py-10 text-gray-500">
                     No items for sale. Add your first item to get started.
                   </TableCell>
                 </TableRow>

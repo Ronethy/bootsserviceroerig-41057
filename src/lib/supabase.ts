@@ -1,4 +1,3 @@
-
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration
@@ -14,6 +13,7 @@ export type User = {
   id: string;
   email: string;
   created_at: string;
+  last_sign_in_at?: string; // Add the missing property as optional
 };
 
 export type HeroContent = {

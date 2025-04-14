@@ -1,8 +1,15 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryImages } from '@/lib/supabase';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 export function GallerySection() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -59,6 +66,22 @@ export function GallerySection() {
     document.body.style.overflow = 'auto';
   };
 
+  // For smaller screens, show the carousel view
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
   return (
     <section id="gallery" className="section">
       <div className="container">
@@ -70,14 +93,47 @@ export function GallerySection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {isLoading ? (
-            // Loading skeleton
-            Array(3).fill(0).map((_, idx) => (
+        {isLoading ? (
+          // Loading skeleton
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {Array(3).fill(0).map((_, idx) => (
               <div key={idx} className="bg-gray-200 animate-pulse rounded-lg" style={{ height: '300px' }}></div>
-            ))
-          ) : (
-            displayImages.map((image) => (
+            ))}
+          </div>
+        ) : isMobile ? (
+          // Mobile carousel view
+          <div className="px-4">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {displayImages.map((image) => (
+                  <CarouselItem key={image.id} className="md:basis-1/2 lg:basis-1/3">
+                    <div 
+                      className="overflow-hidden rounded-lg shadow-md cursor-pointer transition-all duration-300 h-64 relative"
+                      onClick={() => openLightbox(image.image_url, image.title)}
+                    >
+                      <img 
+                        src={image.image_url} 
+                        alt={image.title} 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-marina/80 to-transparent flex flex-col justify-end p-4">
+                        <h3 className="text-white text-xl font-semibold">{image.title}</h3>
+                        <p className="text-white/90 text-sm">{image.description}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-4">
+                <CarouselPrevious className="relative static left-0 translate-x-0 translate-y-0 mr-2" />
+                <CarouselNext className="relative static right-0 translate-x-0 translate-y-0" />
+              </div>
+            </Carousel>
+          </div>
+        ) : (
+          // Desktop grid view
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayImages.map((image) => (
               <div 
                 key={image.id} 
                 className="overflow-hidden rounded-lg shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group"
@@ -93,9 +149,9 @@ export function GallerySection() {
                   <p className="text-white/90 text-sm">{image.description}</p>
                 </div>
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Lightbox */}
         {selectedImage && (

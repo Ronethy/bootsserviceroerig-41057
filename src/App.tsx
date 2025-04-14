@@ -11,6 +11,15 @@ import AdminPage from "./pages/admin/AdminPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import NotFound from "./pages/NotFound";
 
+// Import admin management pages
+import { HeroManagement } from "./components/admin/HeroManagement";
+import { AboutManagement } from "./components/admin/AboutManagement";
+import { GalleryManagement } from "./components/admin/GalleryManagement";
+import { ServicesManagement } from "./components/admin/ServicesManagement";
+import { ForSaleManagement } from "./components/admin/ForSaleManagement";
+import { ContactManagement } from "./components/admin/ContactManagement";
+import { UserManagement } from "./components/admin/UserManagement";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -25,14 +34,13 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/admin" element={<AdminPage />}>
               <Route index element={<AdminDashboardPage />} />
-              {/* These would be implemented to manage each content type
-              <Route path="hero" element={<AdminHeroPage />} />
-              <Route path="about" element={<AdminAboutPage />} />
-              <Route path="gallery" element={<AdminGalleryPage />} />
-              <Route path="services" element={<AdminServicesPage />} />
-              <Route path="for-sale" element={<AdminForSalePage />} />
-              <Route path="contact" element={<AdminContactPage />} />
-              <Route path="users" element={<AdminUsersPage />} /> */}
+              <Route path="hero" element={<HeroManagement />} />
+              <Route path="about" element={<AboutManagement />} />
+              <Route path="gallery" element={<GalleryManagement />} />
+              <Route path="services" element={<ServicesManagement />} />
+              <Route path="for-sale" element={<ForSaleManagement />} />
+              <Route path="contact" element={<ContactManagement />} />
+              <Route path="users" element={<UserManagement />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

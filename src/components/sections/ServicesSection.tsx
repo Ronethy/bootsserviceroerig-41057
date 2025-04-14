@@ -1,7 +1,6 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
-import { Anchor, Tool, ShieldCheck, LifeBuoy } from 'lucide-react';
+import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
 
 export function ServicesSection() {
   const { data: services, isLoading } = useQuery({
@@ -15,7 +14,7 @@ export function ServicesSection() {
       id: 1,
       title: "Boat Maintenance",
       description: "Professional maintenance services for all types of boats, keeping your vessel in optimal condition year-round.",
-      icon: "Tool",
+      icon: "Wrench",
       image_url: "",
       created_at: new Date().toISOString()
     },
@@ -50,8 +49,8 @@ export function ServicesSection() {
   // Function to map string icon names to actual icons
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
-      case 'Tool':
-        return <Tool className="h-12 w-12 text-marina" />;
+      case 'Wrench':
+        return <Wrench className="h-12 w-12 text-marina" />;
       case 'Anchor':
         return <Anchor className="h-12 w-12 text-marina" />;
       case 'ShieldCheck':
@@ -59,7 +58,7 @@ export function ServicesSection() {
       case 'LifeBuoy':
         return <LifeBuoy className="h-12 w-12 text-marina" />;
       default:
-        return <Tool className="h-12 w-12 text-marina" />;
+        return <Wrench className="h-12 w-12 text-marina" />;
     }
   };
 

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryImages } from '@/lib/supabase';
@@ -113,16 +112,6 @@ export function GallerySection() {
                 <CarouselNext className="relative static right-0 translate-x-0 translate-y-0" />
               </div>
             </Carousel>
-            
-            {/* Image indicators */}
-            <div className="flex justify-center mt-4 gap-1">
-              {displayImages.map((_, idx) => (
-                <div 
-                  key={idx} 
-                  className="h-2 w-2 rounded-full bg-gray-300"
-                />
-              ))}
-            </div>
           </div>
         )}
 

@@ -76,6 +76,16 @@ export function ForSaleSection() {
     }).format(price);
   };
 
+  const formatDate = (yearBuilt: number | null) => {
+    if (!yearBuilt) return "-";
+    const date = new Date(yearBuilt);
+    return new Intl.DateTimeFormat('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).format(date);
+  };
+
   return (
     <section id="for-sale" className="section bg-marina-muted">
       <div className="container">
@@ -115,7 +125,7 @@ export function ForSaleSection() {
                   {item.year_built && (
                     <div className="absolute top-4 left-4 bg-white text-marina-dark px-3 py-1 rounded-full font-semibold flex items-center">
                       <CalendarDays className="h-4 w-4 mr-1" />
-                      Baujahr: {item.year_built}
+                      {formatDate(item.year_built)}
                     </div>
                   )}
                 </div>

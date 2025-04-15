@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -166,10 +167,11 @@ export function ForSaleManagement() {
       }
     }
     
+    // Store the full timestamp instead of just the year
     const itemData = {
       ...formData,
       image_urls: imageUrls,
-      year_built: formData.year_built ? formData.year_built.getFullYear() : null
+      year_built: formData.year_built ? formData.year_built.getTime() : null
     };
     
     if (editingItem) {
@@ -181,11 +183,15 @@ export function ForSaleManagement() {
 
   const handleEdit = (item: ForSaleItem) => {
     setEditingItem(item);
+    
+    // Convert timestamp back to Date object for editing
+    const yearBuiltDate = item.year_built ? new Date(item.year_built) : undefined;
+    
     setFormData({
       title: item.title,
       description: item.description,
       price: item.price,
-      year_built: item.year_built ? new Date(item.year_built, 0, 1) : undefined,
+      year_built: yearBuiltDate,
       image_urls: item.image_urls || [],
     });
     setOpen(true);
@@ -211,6 +217,16 @@ export function ForSaleManagement() {
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
+  };
+
+  const formatDate = (timestamp: number | null) => {
+    if (!timestamp) return "-";
+    const date = new Date(timestamp);
+    return new Intl.DateTimeFormat('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).format(date);
   };
 
   return (
@@ -266,7 +282,7 @@ export function ForSaleManagement() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="year_built" className="text-sm font-medium">Baujahr</label>
+                    <label htmlFor="year_built" className="text-sm font-medium">Datum</label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -277,7 +293,7 @@ export function ForSaleManagement() {
                           )}
                         >
                           <CalendarDays className="mr-2 h-4 w-4" />
-                          {formData.year_built ? format(formData.year_built, "yyyy") : <span>Select year</span>}
+                          {formData.year_built ? format(formData.year_built, "dd.MM.yyyy") : <span>Datum auswählen</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
@@ -286,9 +302,6 @@ export function ForSaleManagement() {
                           selected={formData.year_built}
                           onSelect={(date) => setFormData(prev => ({ ...prev, year_built: date }))}
                           initialFocus
-                          fromYear={1900}
-                          toYear={new Date().getFullYear()}
-                          captionLayout="dropdown-buttons"
                           className="p-3 pointer-events-auto"
                         />
                       </PopoverContent>
@@ -390,7 +403,7 @@ export function ForSaleManagement() {
                 <TableHead>Title</TableHead>
                 <TableHead className="hidden md:table-cell">Description</TableHead>
                 <TableHead>Price</TableHead>
-                <TableHead className="hidden sm:table-cell">Baujahr</TableHead>
+                <TableHead className="hidden sm:table-cell">Datum</TableHead>
                 <TableHead className="w-[100px] text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -418,7 +431,7 @@ export function ForSaleManagement() {
                         : item.description}
                     </TableCell>
                     <TableCell>{formatPrice(item.price)}</TableCell>
-                    <TableCell className="hidden sm:table-cell">{item.year_built || "-"}</TableCell>
+                    <TableCell className="hidden sm:table-cell">{formatDate(item.year_built)}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         <Button 

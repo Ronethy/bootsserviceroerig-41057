@@ -55,7 +55,7 @@ export type ForSaleItem = {
   title: string;
   description: string;
   price: number;
-  year_built?: number; // Add the year_built property as optional
+  year_built?: number; // Updated to store a timestamp (number) instead of just year
   image_urls: string[];
   created_at: string;
 };

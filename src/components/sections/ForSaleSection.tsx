@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { getForSaleItems } from '@/lib/supabase';
 import { ChevronLeft, ChevronRight, Euro, X, CalendarDays } from 'lucide-react';
@@ -26,7 +27,7 @@ export function ForSaleSection() {
       title: "Motor Yacht 28ft",
       description: "Well-maintained 28ft motor yacht with a spacious cabin, perfect for weekend trips on the Mosel.",
       price: 45000,
-      year_built: 2015,
+      year_built: new Date('2015-05-15').getTime(),
       image_urls: [
         "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&q=80&w=2070",
         "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=2074",
@@ -39,7 +40,7 @@ export function ForSaleSection() {
       title: "Fishing Boat with Equipment",
       description: "Fully equipped fishing boat, including rods, tackle, and sonar. Ready for your next fishing adventure.",
       price: 12500,
-      year_built: 2018,
+      year_built: new Date('2018-08-22').getTime(),
       image_urls: [
         "https://images.unsplash.com/photo-1564762861010-0473a5cff334?auto=format&fit=crop&q=80&w=2070",
         "https://images.unsplash.com/photo-1483981154649-2c91bca6518b?auto=format&fit=crop&q=80&w=2070"
@@ -51,7 +52,7 @@ export function ForSaleSection() {
       title: "Vintage Wooden Sailboat",
       description: "Beautifully restored wooden sailboat from the 1950s. A true classic that turns heads on the water.",
       price: 28900,
-      year_built: 1952,
+      year_built: new Date('1952-06-17').getTime(),
       image_urls: [
         "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&q=80&w=2070",
         "https://images.unsplash.com/photo-1575397721175-a2cec84e9bc4?auto=format&fit=crop&q=80&w=2070",
@@ -76,9 +77,9 @@ export function ForSaleSection() {
     }).format(price);
   };
 
-  const formatDate = (yearBuilt: number | null) => {
-    if (!yearBuilt) return "-";
-    const date = new Date(yearBuilt);
+  const formatDate = (timestamp: number | null) => {
+    if (!timestamp) return "-";
+    const date = new Date(timestamp);
     return new Intl.DateTimeFormat('de-DE', {
       day: '2-digit',
       month: '2-digit',
@@ -156,7 +157,7 @@ export function ForSaleSection() {
                   {selectedItem.year_built && (
                     <div className="flex items-center text-gray-700 font-medium">
                       <CalendarDays className="h-4 w-4 mr-1" />
-                      <span>Baujahr: {selectedItem.year_built}</span>
+                      <span>Datum: {formatDate(selectedItem.year_built)}</span>
                     </div>
                   )}
                 </div>
@@ -184,15 +185,6 @@ export function ForSaleSection() {
                     <CarouselNext className="relative static right-0 translate-x-0 translate-y-0" />
                   </div>
                 </Carousel>
-                
-                <div className="flex justify-center mt-2 gap-1">
-                  {selectedItem.image_urls.map((_, idx) => (
-                    <div 
-                      key={idx} 
-                      className={`h-2 w-2 rounded-full ${idx === 0 ? 'bg-marina' : 'bg-gray-300'}`}
-                    />
-                  ))}
-                </div>
               </div>
 
               <div className="mt-6">

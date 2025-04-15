@@ -9,6 +9,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 export function ForSaleManagement() {
   const { toast } = useToast();
@@ -19,7 +23,7 @@ export function ForSaleManagement() {
     title: '',
     description: '',
     price: 0,
-    year_built: undefined as number | undefined,
+    year_built: undefined as Date | undefined,
     image_urls: [] as string[],
   });
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -117,11 +121,6 @@ export function ForSaleManagement() {
     const { name, value } = e.target;
     if (name === 'price') {
       setFormData(prev => ({ ...prev, [name]: parseFloat(value) || 0 }));
-    } else if (name === 'year_built') {
-      setFormData(prev => ({ 
-        ...prev, 
-        [name]: value ? parseInt(value) : undefined 
-      }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -170,7 +169,7 @@ export function ForSaleManagement() {
     const itemData = {
       ...formData,
       image_urls: imageUrls,
-      year_built: formData.year_built || null
+      year_built: formData.year_built ? formData.year_built.getFullYear() : null
     };
     
     if (editingItem) {
@@ -186,7 +185,7 @@ export function ForSaleManagement() {
       title: item.title,
       description: item.description,
       price: item.price,
-      year_built: item.year_built || undefined,
+      year_built: item.year_built ? new Date(item.year_built, 0, 1) : undefined,
       image_urls: item.image_urls || [],
     });
     setOpen(true);
@@ -267,17 +266,33 @@ export function ForSaleManagement() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="year_built" className="text-sm font-medium">Baujahr (optional)</label>
-                    <Input 
-                      id="year_built" 
-                      name="year_built" 
-                      type="number" 
-                      min="1900" 
-                      max={new Date().getFullYear()} 
-                      value={formData.year_built ?? ''} 
-                      onChange={handleChange} 
-                      placeholder="Baujahr (optional)"
-                    />
+                    <label htmlFor="year_built" className="text-sm font-medium">Baujahr</label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !formData.year_built && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarDays className="mr-2 h-4 w-4" />
+                          {formData.year_built ? format(formData.year_built, "yyyy") : <span>Select year</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={formData.year_built}
+                          onSelect={(date) => setFormData(prev => ({ ...prev, year_built: date }))}
+                          initialFocus
+                          fromYear={1900}
+                          toYear={new Date().getFullYear()}
+                          captionLayout="dropdown-buttons"
+                          className="p-3 pointer-events-auto"
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </div>
                 </div>
                 <div className="space-y-2">

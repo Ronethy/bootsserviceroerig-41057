@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { getAboutContent } from '@/lib/supabase';
 
@@ -56,15 +55,6 @@ export function AboutSection() {
                   }} 
                 />
               )}
-            </div>
-            
-            <div className="mt-8">
-              <a 
-                href="#services" 
-                className="btn btn-primary px-6 py-3 rounded-md text-white"
-              >
-                Our Services
-              </a>
             </div>
           </div>
         </div>

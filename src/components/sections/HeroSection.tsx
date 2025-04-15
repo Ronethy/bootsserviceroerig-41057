@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { getHeroContent } from '@/lib/supabase';
 import { Anchor, ArrowDown } from 'lucide-react';
@@ -38,7 +37,7 @@ export function HeroSection() {
           {isLoading ? "Your trusted marina at Güls an der Mosel" : heroContent?.subtitle || "Your trusted marina at Güls an der Mosel"}
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#services"
             className="btn btn-accent px-6 py-3 rounded-md text-lg"
@@ -51,7 +50,7 @@ export function HeroSection() {
           >
             Contact Us
           </a>
-        </div>
+        </div> */}
       </div>
       
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">

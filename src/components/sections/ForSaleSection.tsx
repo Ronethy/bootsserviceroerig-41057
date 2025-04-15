@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { getForSaleItems } from '@/lib/supabase';
 import { ChevronLeft, ChevronRight, Euro, X, CalendarDays } from 'lucide-react';
@@ -21,7 +20,6 @@ export function ForSaleSection() {
 
   const [selectedItem, setSelectedItem] = useState<null | (typeof forSaleItems)[0]>(null);
 
-  // Default items in case none are available from Supabase
   const defaultItems = [
     {
       id: 1,
@@ -90,7 +88,6 @@ export function ForSaleSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isLoading ? (
-            // Loading skeleton
             Array(3).fill(0).map((_, idx) => (
               <div key={idx} className="bg-white animate-pulse rounded-lg shadow-lg h-96"></div>
             ))
@@ -136,7 +133,6 @@ export function ForSaleSection() {
           )}
         </div>
 
-        {/* Item Details Dialog */}
         {selectedItem && (
           <Dialog open={!!selectedItem} onOpenChange={(open) => !open && setSelectedItem(null)}>
             <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
@@ -156,7 +152,6 @@ export function ForSaleSection() {
                 </div>
               </DialogHeader>
 
-              {/* Item Images Carousel */}
               <div className="mt-4">
                 <Carousel className="w-full">
                   <CarouselContent>
@@ -180,7 +175,6 @@ export function ForSaleSection() {
                   </div>
                 </Carousel>
                 
-                {/* Image indicators */}
                 <div className="flex justify-center mt-2 gap-1">
                   {selectedItem.image_urls.map((_, idx) => (
                     <div 

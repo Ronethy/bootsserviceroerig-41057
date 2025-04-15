@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getForSaleItems, uploadFile, supabase, ForSaleItem } from '@/lib/supabase';
-import { ShoppingBag, Plus, Pencil, Trash2, Loader2, X } from 'lucide-react';
+import { ShoppingBag, Plus, Pencil, Trash2, Loader2, X, CalendarDays } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -19,7 +19,7 @@ export function ForSaleManagement() {
     title: '',
     description: '',
     price: 0,
-    year_built: new Date().getFullYear(),
+    year_built: undefined as number | undefined,
     image_urls: [] as string[],
   });
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -118,7 +118,10 @@ export function ForSaleManagement() {
     if (name === 'price') {
       setFormData(prev => ({ ...prev, [name]: parseFloat(value) || 0 }));
     } else if (name === 'year_built') {
-      setFormData(prev => ({ ...prev, [name]: parseInt(value) || new Date().getFullYear() }));
+      setFormData(prev => ({ 
+        ...prev, 
+        [name]: value ? parseInt(value) : undefined 
+      }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -167,6 +170,7 @@ export function ForSaleManagement() {
     const itemData = {
       ...formData,
       image_urls: imageUrls,
+      year_built: formData.year_built || null
     };
     
     if (editingItem) {
@@ -182,7 +186,7 @@ export function ForSaleManagement() {
       title: item.title,
       description: item.description,
       price: item.price,
-      year_built: item.year_built || new Date().getFullYear(),
+      year_built: item.year_built || undefined,
       image_urls: item.image_urls || [],
     });
     setOpen(true);
@@ -199,7 +203,7 @@ export function ForSaleManagement() {
       title: '',
       description: '',
       price: 0,
-      year_built: new Date().getFullYear(),
+      year_built: undefined,
       image_urls: [],
     });
     setImageFiles([]);
@@ -263,16 +267,16 @@ export function ForSaleManagement() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="year_built" className="text-sm font-medium">Baujahr</label>
+                    <label htmlFor="year_built" className="text-sm font-medium">Baujahr (optional)</label>
                     <Input 
                       id="year_built" 
                       name="year_built" 
                       type="number" 
                       min="1900" 
                       max={new Date().getFullYear()} 
-                      value={formData.year_built} 
+                      value={formData.year_built ?? ''} 
                       onChange={handleChange} 
-                      required 
+                      placeholder="Baujahr (optional)"
                     />
                   </div>
                 </div>

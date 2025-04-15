@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getForSaleItems, uploadFile, supabase, ForSaleItem } from '@/lib/supabase';
@@ -167,7 +166,6 @@ export function ForSaleManagement() {
       }
     }
     
-    // Store the full timestamp instead of just the year
     const itemData = {
       ...formData,
       image_urls: imageUrls,
@@ -184,7 +182,6 @@ export function ForSaleManagement() {
   const handleEdit = (item: ForSaleItem) => {
     setEditingItem(item);
     
-    // Convert timestamp back to Date object for editing
     const yearBuiltDate = item.year_built ? new Date(item.year_built) : undefined;
     
     setFormData({

@@ -55,6 +55,7 @@ export type ForSaleItem = {
   title: string;
   description: string;
   price: number;
+  year_built?: number; // Add the year_built property as optional
   image_urls: string[];
   created_at: string;
 };

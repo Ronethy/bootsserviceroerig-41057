@@ -5,9 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getContactInfo, supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import Map from '@/components/Map';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function ContactSection() {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -65,21 +68,21 @@ export function ContactSection() {
     <section id="contact" className="section bg-white">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="h2 text-marina mb-4">Contact Us</h2>
+          <h2 className="h2 text-marina mb-4">{t('contact.title')}</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Have questions or need more information? Send us a message and we'll get back to you as soon as possible.
+            {t('contact.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">Get In Touch</h3>
+            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">{t('contact.getInTouch')}</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Name
+                    {t('contact.name')}
                   </label>
                   <input
                     type="text"
@@ -94,7 +97,7 @@ export function ContactSection() {
                 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
+                    {t('contact.email')}
                   </label>
                   <input
                     type="email"
@@ -111,7 +114,7 @@ export function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone (optional)
+                    {t('contact.phone')}
                   </label>
                   <input
                     type="tel"
@@ -125,7 +128,7 @@ export function ContactSection() {
                 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                    Subject
+                    {t('contact.subject')}
                   </label>
                   <select
                     id="subject"
@@ -135,18 +138,18 @@ export function ContactSection() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-marina"
                   >
-                    <option value="">Select a subject</option>
-                    <option value="General Inquiry">General Inquiry</option>
-                    <option value="Services">Services</option>
-                    <option value="For Sale Items">For Sale Items</option>
-                    <option value="Other">Other</option>
+                    <option value="">{t('contact.selectSubject')}</option>
+                    <option value="General Inquiry">{t('contact.generalInquiry')}</option>
+                    <option value="Services">{t('contact.services')}</option>
+                    <option value="For Sale Items">{t('contact.forSaleItems')}</option>
+                    <option value="Other">{t('contact.other')}</option>
                   </select>
                 </div>
               </div>
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
+                  {t('contact.message')}
                 </label>
                 <textarea
                   id="message"
@@ -164,26 +167,30 @@ export function ContactSection() {
                 className="w-full md:w-auto bg-marina hover:bg-marina-light text-white px-8 py-3"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? t('contact.sending') : t('contact.send')}
               </Button>
             </form>
           </div>
           
           <div>
-            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">Our Location</h3>
+            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">{t('contact.ourLocation')}</h3>
             
-            <div className="bg-gray-200 rounded-lg overflow-hidden h-64 mb-8">
-              {/* Placeholder for Google Maps */}
-              <div className="w-full h-full flex items-center justify-center bg-gray-300">
-                <p className="text-gray-600">Map Loading...</p>
-              </div>
+            {/* Replace placeholder with actual Map component */}
+            <div className="mb-8">
+              {contactInfo?.address ? (
+                <Map address={contactInfo.address} className="h-64 w-full rounded-lg overflow-hidden" />
+              ) : (
+                <div className="bg-gray-200 rounded-lg overflow-hidden h-64 flex items-center justify-center">
+                  <p className="text-gray-600">{t('contact.loadingMap')}</p>
+                </div>
+              )}
             </div>
             
             <div className="space-y-6">
               <div className="flex items-start">
                 <MapPin className="h-6 w-6 text-marina mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-marina-dark mb-1">Address</h4>
+                  <h4 className="font-semibold text-marina-dark mb-1">{t('contact.address')}</h4>
                   <p className="text-gray-600">
                     {contactInfo?.address || "Bootsservice Rörig, Güls an der Mosel, 56073 Koblenz, Germany"}
                   </p>
@@ -193,7 +200,7 @@ export function ContactSection() {
               <div className="flex items-start">
                 <Phone className="h-6 w-6 text-marina mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-marina-dark mb-1">Phone</h4>
+                  <h4 className="font-semibold text-marina-dark mb-1">{t('contact.phone')}</h4>
                   <p className="text-gray-600">
                     {contactInfo?.phone || "+49 123 456 7890"}
                   </p>
@@ -203,7 +210,7 @@ export function ContactSection() {
               <div className="flex items-start">
                 <Mail className="h-6 w-6 text-marina mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-marina-dark mb-1">Email</h4>
+                  <h4 className="font-semibold text-marina-dark mb-1">{t('contact.email')}</h4>
                   <p className="text-gray-600">
                     {contactInfo?.email || "info@mosel-marina.de"}
                   </p>

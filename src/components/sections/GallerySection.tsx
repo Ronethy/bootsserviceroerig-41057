@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryImages } from '@/lib/supabase';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   Carousel, 
   CarouselContent, 
@@ -11,6 +13,7 @@ import {
 } from "@/components/ui/carousel";
 
 export function GallerySection() {
+  const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedCaption, setSelectedCaption] = useState<string | null>(null);
   
@@ -69,10 +72,9 @@ export function GallerySection() {
     <section id="gallery" className="section">
       <div className="container">
         <div className="text-center mb-12">
-          <h2 className="h2 text-marina mb-4">Gallery</h2>
+          <h2 className="h2 text-marina mb-4">{t('gallery.title')}</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Explore our marina through these images showcasing our facilities, 
-            services, and the beautiful surroundings of Güls an der Mosel.
+            {t('gallery.description')}
           </p>
         </div>
 

@@ -1,13 +1,16 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Anchor, Ship } from 'lucide-react';
+import { Menu, X, Ship } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 shadow-sm py-3 transition-all duration-300">
@@ -19,36 +22,41 @@ export function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-marina hover:text-marina-accent font-medium">Home</Link>
-          <a href="#about" className="text-marina hover:text-marina-accent font-medium">About</a>
-          <a href="#gallery" className="text-marina hover:text-marina-accent font-medium">Gallery</a>
-          <a href="#services" className="text-marina hover:text-marina-accent font-medium">Services</a>
-          <a href="#for-sale" className="text-marina hover:text-marina-accent font-medium">For Sale</a>
-          <a href="#contact" className="text-marina hover:text-marina-accent font-medium">Contact</a>
+          <Link to="/" className="text-marina hover:text-marina-accent font-medium">{t('nav.home')}</Link>
+          <a href="#about" className="text-marina hover:text-marina-accent font-medium">{t('nav.about')}</a>
+          <a href="#gallery" className="text-marina hover:text-marina-accent font-medium">{t('nav.gallery')}</a>
+          <a href="#services" className="text-marina hover:text-marina-accent font-medium">{t('nav.services')}</a>
+          <a href="#for-sale" className="text-marina hover:text-marina-accent font-medium">{t('nav.forSale')}</a>
+          <a href="#contact" className="text-marina hover:text-marina-accent font-medium">{t('nav.contact')}</a>
+          
+          <LanguageSwitcher />
           
           {user ? (
             <Link to="/admin">
               <Button variant="outline" className="border-marina text-marina hover:bg-marina hover:text-white">
-                Admin
+                {t('nav.admin')}
               </Button>
             </Link>
           ) : (
             <Link to="/login">
               <Button variant="outline" className="border-marina text-marina hover:bg-marina hover:text-white">
-                Login
+                {t('nav.login')}
               </Button>
             </Link>
           )}
         </div>
 
         {/* Mobile Navigation Toggle */}
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? (
-            <X className="h-6 w-6 text-marina" />
-          ) : (
-            <Menu className="h-6 w-6 text-marina" />
-          )}
-        </button>
+        <div className="md:hidden flex items-center space-x-2">
+          <LanguageSwitcher />
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? (
+              <X className="h-6 w-6 text-marina" />
+            ) : (
+              <Menu className="h-6 w-6 text-marina" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Menu */}
@@ -60,54 +68,54 @@ export function Navbar() {
               className="text-marina hover:text-marina-accent font-medium"
               onClick={() => setIsOpen(false)}
             >
-              Home
+              {t('nav.home')}
             </Link>
             <a 
               href="#about" 
               className="text-marina hover:text-marina-accent font-medium"
               onClick={() => setIsOpen(false)}
             >
-              About
+              {t('nav.about')}
             </a>
             <a 
               href="#gallery" 
               className="text-marina hover:text-marina-accent font-medium"
               onClick={() => setIsOpen(false)}
             >
-              Gallery
+              {t('nav.gallery')}
             </a>
             <a 
               href="#services" 
               className="text-marina hover:text-marina-accent font-medium"
               onClick={() => setIsOpen(false)}
             >
-              Services
+              {t('nav.services')}
             </a>
             <a 
               href="#for-sale" 
               className="text-marina hover:text-marina-accent font-medium"
               onClick={() => setIsOpen(false)}
             >
-              For Sale
+              {t('nav.forSale')}
             </a>
             <a 
               href="#contact" 
               className="text-marina hover:text-marina-accent font-medium"
               onClick={() => setIsOpen(false)}
             >
-              Contact
+              {t('nav.contact')}
             </a>
             
             {user ? (
               <Link to="/admin" onClick={() => setIsOpen(false)}>
                 <Button className="w-full bg-marina text-white hover:bg-marina-light">
-                  Admin
+                  {t('nav.admin')}
                 </Button>
               </Link>
             ) : (
               <Link to="/login" onClick={() => setIsOpen(false)}>
                 <Button className="w-full bg-marina text-white hover:bg-marina-light">
-                  Login
+                  {t('nav.login')}
                 </Button>
               </Link>
             )}

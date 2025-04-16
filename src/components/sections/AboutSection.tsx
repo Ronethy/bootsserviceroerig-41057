@@ -1,7 +1,10 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { getAboutContent } from '@/lib/supabase';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function AboutSection() {
+  const { t } = useLanguage();
   const { data: aboutContent, isLoading } = useQuery({
     queryKey: ['aboutContent'],
     queryFn: getAboutContent
@@ -26,32 +29,22 @@ export function AboutSection() {
           
           <div>
             <h2 className="h2 text-marina mb-6">
-              {isLoading ? "About Bootsservice Rörig" : aboutContent?.title || "About Bootsservice Rörig"}
+              {isLoading ? t('about.defaultTitle') : aboutContent?.title || t('about.defaultTitle')}
             </h2>
             
             <div className="prose prose-lg max-w-none">
               {isLoading ? (
-                <p className="text-gray-600 mb-4">
-                  Located at the beautiful Mosel river in Güls, our marina has been serving boat 
-                  enthusiasts for decades. We offer comprehensive services for all your boating needs,
-                  from maintenance and repairs to storage and accessories.
-                </p>
+                <div 
+                  className="text-gray-600"
+                  dangerouslySetInnerHTML={{ 
+                    __html: t('about.defaultContent')
+                  }} 
+                />
               ) : (
                 <div 
                   className="text-gray-600"
                   dangerouslySetInnerHTML={{ 
-                    __html: aboutContent?.content || `
-                      <p class="mb-4">
-                        Located at the beautiful Mosel river in Güls, our marina has been serving boat 
-                        enthusiasts for decades. We offer comprehensive services for all your boating needs,
-                        from maintenance and repairs to storage and accessories.
-                      </p>
-                      <p>
-                        Our experienced team is passionate about boats and committed to providing 
-                        excellent service to every customer. Whether you're a seasoned sailor or new to 
-                        boating, we're here to help you make the most of your time on the water.
-                      </p>
-                    `
+                    __html: aboutContent?.content || t('about.defaultContent')
                   }} 
                 />
               )}

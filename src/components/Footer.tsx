@@ -2,8 +2,10 @@
 import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getContactInfo } from '@/lib/supabase';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function Footer() {
+  const { t } = useLanguage();
   const { data: contactInfo } = useQuery({
     queryKey: ['contactInfo'],
     queryFn: getContactInfo
@@ -19,7 +21,7 @@ export function Footer() {
           <div>
             <h3 className="text-2xl font-display font-bold mb-4">Mosel Marina</h3>
             <p className="mb-4">
-              Your trusted marina at Güls an der Mosel, providing quality boat services since 1995.
+              {t('hero.defaultSubtitle')}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white hover:text-marina-accent">
@@ -35,7 +37,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="text-xl font-display font-bold mb-4">Contact Us</h3>
+            <h3 className="text-xl font-display font-bold mb-4">{t('contact.title')}</h3>
             <div className="space-y-3">
               {contactInfo?.address && (
                 <div className="flex items-start">
@@ -79,11 +81,11 @@ export function Footer() {
         </div>
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
-          <p>© {currentYear} Mosel Marina at Güls. All rights reserved.</p>
+          <p>© {currentYear} Mosel Marina at Güls. {t('footer.rights')}</p>
           <div className="mt-4 flex justify-center space-x-4 text-sm">
-            <a href="#" className="hover:underline">Privacy Policy</a>
-            <a href="#" className="hover:underline">Terms of Service</a>
-            <a href="#" className="hover:underline">Imprint</a>
+            <a href="#" className="hover:underline">{t('footer.privacy')}</a>
+            <a href="#" className="hover:underline">{t('footer.terms')}</a>
+            <a href="#" className="hover:underline">{t('footer.imprint')}</a>
           </div>
         </div>
       </div>

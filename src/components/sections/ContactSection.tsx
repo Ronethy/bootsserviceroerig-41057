@@ -1,12 +1,11 @@
-
 import { useState } from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { getContactInfo, supabase } from '@/lib/supabase';
+import { getContactInfo } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import Map from '@/components/Map';
 import { useLanguage } from '@/context/LanguageContext';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export function ContactSection() {
   const { toast } = useToast();
@@ -35,16 +34,13 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // In a real implementation, you would submit this data to Supabase
-      // For now, we'll just show a success message
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
         title: "Message Sent!",
         description: "Thank you for contacting us. We'll get back to you shortly.",
       });
       
-      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -175,15 +171,14 @@ export function ContactSection() {
           <div>
             <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">{t('contact.ourLocation')}</h3>
             
-            {/* Replace placeholder with actual Map component */}
             <div className="mb-8">
-              {contactInfo?.address ? (
-                <Map address={contactInfo.address} className="h-64 w-full rounded-lg overflow-hidden" />
-              ) : (
-                <div className="bg-gray-200 rounded-lg overflow-hidden h-64 flex items-center justify-center">
-                  <p className="text-gray-600">{t('contact.loadingMap')}</p>
-                </div>
-              )}
+              <AspectRatio ratio={16/9}>
+                <img 
+                  src="/location-image.jpg" 
+                  alt="Our Location"
+                  className="rounded-lg object-cover w-full h-full"
+                />
+              </AspectRatio>
             </div>
             
             <div className="space-y-6">

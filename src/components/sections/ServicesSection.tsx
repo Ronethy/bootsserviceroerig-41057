@@ -2,6 +2,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
+import { useState } from 'react';
 
 export function ServicesSection() {
   const { data: services, isLoading } = useQuery({
@@ -63,6 +71,38 @@ export function ServicesSection() {
     }
   };
 
+  // Rendering a service card with slideshow if image is available
+  const renderServiceCard = (service: typeof displayServices[0]) => {
+    const hasImage = service.image_url && service.image_url.trim() !== '';
+    
+    return (
+      <div 
+        key={service.id} 
+        className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
+      >
+        {hasImage ? (
+          <div className="mb-6 h-48 overflow-hidden rounded-md">
+            <img 
+              src={service.image_url} 
+              alt={service.title} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="mb-6">
+            {getIconComponent(service.icon)}
+          </div>
+        )}
+        <h3 className="text-xl font-display font-semibold text-marina-dark mb-4">
+          {service.title}
+        </h3>
+        <p className="text-gray-600">
+          {service.description}
+        </p>
+      </div>
+    );
+  };
+
   return (
     <section id="services" className="section bg-white hero-pattern">
       <div className="container">
@@ -80,22 +120,7 @@ export function ServicesSection() {
               <div key={idx} className="bg-gray-100 animate-pulse rounded-lg p-8 h-64"></div>
             ))
           ) : (
-            displayServices.map((service) => (
-              <div 
-                key={service.id} 
-                className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100"
-              >
-                <div className="mb-6">
-                  {getIconComponent(service.icon)}
-                </div>
-                <h3 className="text-xl font-display font-semibold text-marina-dark mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">
-                  {service.description}
-                </p>
-              </div>
-            ))
+            displayServices.map(renderServiceCard)
           )}
         </div>
       </div>

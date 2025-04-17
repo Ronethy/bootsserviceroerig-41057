@@ -1,13 +1,13 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getContactInfo, supabase, ContactInfo } from '@/lib/supabase';
-import { Loader2, Save, PhoneCall, Mail, MapPin, Clock } from 'lucide-react';
+import { Loader2, Save, PhoneCall, Mail, MapPin, Clock, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { uploadFile } from '@/lib/supabase';
 
 export function ContactManagement() {
   const { toast } = useToast();
@@ -23,12 +23,15 @@ export function ContactManagement() {
     phone: string;
     email: string;
     hours: string;
+    location_image?: string;
   }>({
     address: '',
     phone: '',
     email: '',
     hours: '',
   });
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   // Update form data when contact info is loaded
   useEffect(() => {
@@ -38,19 +41,34 @@ export function ContactManagement() {
         phone: contactInfo.phone,
         email: contactInfo.email,
         hours: contactInfo.hours,
+        location_image: contactInfo.location_image,
       });
     }
   }, [contactInfo]);
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+    }
+  };
+
   const saveContactMutation = useMutation({
     mutationFn: async (data: Partial<ContactInfo>) => {
+      let imageUrl = data.location_image;
+      
+      // Upload image if a new file is selected
+      if (imageFile) {
+        imageUrl = await uploadFile(imageFile, 'location_images', 'contact');
+      }
+
       let result;
       
       if (contactInfo) {
         // Update existing
         const { data: updateData, error: updateError } = await supabase
           .from('contact_info')
-          .update(data)
+          .update({...data, location_image: imageUrl})
           .eq('id', contactInfo.id)
           .select();
         
@@ -60,7 +78,7 @@ export function ContactManagement() {
         // Insert new
         const { data: insertData, error: insertError } = await supabase
           .from('contact_info')
-          .insert([data])
+          .insert([{...data, location_image: imageUrl}])
           .select();
         
         if (insertError) throw insertError;
@@ -75,6 +93,7 @@ export function ContactManagement() {
         title: 'Success',
         description: 'Contact information saved successfully',
       });
+      setImageFile(null);
     },
     onError: (error) => {
       toast({
@@ -176,6 +195,34 @@ export function ContactManagement() {
                   rows={3}
                 />
               </div>
+            </div>
+            
+            <div className="space-y-2">
+              <label htmlFor="location_image" className="flex items-center gap-2 text-sm font-medium">
+                <MapPin className="h-4 w-4" />
+                Location Image
+              </label>
+              <div className="flex items-center space-x-4">
+                <Input 
+                  id="location_image" 
+                  type="file" 
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="flex-grow"
+                />
+                {imageFile && (
+                  <span className="text-sm text-gray-600">
+                    {imageFile.name}
+                  </span>
+                )}
+              </div>
+              {contactInfo?.location_image && (
+                <img 
+                  src={contactInfo.location_image} 
+                  alt="Current location" 
+                  className="mt-2 max-w-xs rounded-lg"
+                />
+              )}
             </div>
             
             <Button 

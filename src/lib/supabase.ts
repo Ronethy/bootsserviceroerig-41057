@@ -1,4 +1,3 @@
-
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration
@@ -66,6 +65,7 @@ export type ContactInfo = {
   phone: string;
   email: string;
   hours: string;
+  location_image?: string;
   created_at: string;
 };
 

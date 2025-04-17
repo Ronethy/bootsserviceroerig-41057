@@ -174,7 +174,7 @@ export function ContactSection() {
             <div className="mb-8">
               <AspectRatio ratio={16/9}>
                 <img 
-                  src="/location-image.jpg" 
+                  src={contactInfo?.location_image || "/location-image.jpg"} 
                   alt="Our Location"
                   className="rounded-lg object-cover w-full h-full"
                 />

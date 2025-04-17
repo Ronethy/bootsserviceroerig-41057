@@ -2,10 +2,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
 
 export function ServicesSection() {
-  const { t } = useLanguage();
   const { data: services, isLoading } = useQuery({
     queryKey: ['services'],
     queryFn: getServices
@@ -69,9 +67,9 @@ export function ServicesSection() {
     <section id="services" className="section bg-white hero-pattern">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="h2 text-marina mb-4">{t('services.title')}</h2>
+          <h2 className="h2 text-marina mb-4">Our Services</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            {t('services.description')}
+            We offer a comprehensive range of services to meet all your boating needs
           </p>
         </div>
 

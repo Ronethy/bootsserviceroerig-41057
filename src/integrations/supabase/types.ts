@@ -40,6 +40,7 @@ export type Database = {
           email: string
           hours: string
           id: number
+          location_image: string | null
           phone: string
         }
         Insert: {
@@ -48,6 +49,7 @@ export type Database = {
           email: string
           hours: string
           id?: number
+          location_image?: string | null
           phone: string
         }
         Update: {
@@ -56,6 +58,7 @@ export type Database = {
           email?: string
           hours?: string
           id?: number
+          location_image?: string | null
           phone?: string
         }
         Relationships: []

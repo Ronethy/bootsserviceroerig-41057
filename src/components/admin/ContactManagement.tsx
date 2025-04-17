@@ -1,13 +1,13 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getContactInfo, supabase, ContactInfo } from '@/lib/supabase';
+import { getContactInfo, supabase, ContactInfo, uploadFile } from '@/lib/supabase';
 import { Loader2, Save, PhoneCall, Mail, MapPin, Clock, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { uploadFile } from '@/lib/supabase';
 
 export function ContactManagement() {
   const { toast } = useToast();
@@ -216,9 +216,9 @@ export function ContactManagement() {
                   </span>
                 )}
               </div>
-              {contactInfo?.location_image && (
+              {formData.location_image && (
                 <img 
-                  src={contactInfo.location_image} 
+                  src={formData.location_image} 
                   alt="Current location" 
                   className="mt-2 max-w-xs rounded-lg"
                 />

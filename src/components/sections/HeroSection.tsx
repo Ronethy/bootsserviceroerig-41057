@@ -2,10 +2,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getHeroContent } from '@/lib/supabase';
 import { Anchor, ArrowDown } from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
 
 export function HeroSection() {
-  const { t } = useLanguage();
   const { data: heroContent, isLoading } = useQuery({
     queryKey: ['heroContent'],
     queryFn: getHeroContent
@@ -14,6 +12,9 @@ export function HeroSection() {
   // Default background in case no image is available from Supabase
   const defaultBg = "https://images.unsplash.com/photo-1540946485063-a40da27545f7?auto=format&fit=crop&q=80&w=2070";
   const bgImageUrl = heroContent?.image_url || defaultBg;
+
+  const defaultTitle = "Welcome to Mosel Marina";
+  const defaultSubtitle = "Your trusted marina at Güls an der Mosel";
 
   return (
     <section
@@ -33,11 +34,11 @@ export function HeroSection() {
         </div>
         
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6">
-          {isLoading ? t('hero.defaultTitle') : heroContent?.title || t('hero.defaultTitle')}
+          {isLoading ? defaultTitle : heroContent?.title || defaultTitle}
         </h1>
         
         <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12">
-          {isLoading ? t('hero.defaultSubtitle') : heroContent?.subtitle || t('hero.defaultSubtitle')}
+          {isLoading ? defaultSubtitle : heroContent?.subtitle || defaultSubtitle}
         </p>
       </div>
       

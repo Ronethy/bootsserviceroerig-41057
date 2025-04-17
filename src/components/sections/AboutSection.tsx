@@ -1,10 +1,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getAboutContent } from '@/lib/supabase';
-import { useLanguage } from '@/context/LanguageContext';
 
 export function AboutSection() {
-  const { t } = useLanguage();
   const { data: aboutContent, isLoading } = useQuery({
     queryKey: ['aboutContent'],
     queryFn: getAboutContent
@@ -13,6 +11,9 @@ export function AboutSection() {
   // Default image in case none is available from Supabase
   const defaultImage = "https://images.unsplash.com/photo-1583004231608-3ce598e9879a?auto=format&fit=crop&q=80&w=2070";
   const imageUrl = aboutContent?.image_url || defaultImage;
+  
+  const defaultTitle = "About Bootsservice Rörig";
+  const defaultContent = "<p class=\"mb-4\">Located at the beautiful Mosel river in Güls, our marina has been serving boat enthusiasts for decades. We offer comprehensive services for all your boating needs, from maintenance and repairs to storage and accessories.</p><p>Our experienced team is passionate about boats and committed to providing excellent service to every customer. Whether you're a seasoned sailor or new to boating, we're here to help you make the most of your time on the water.</p>";
 
   return (
     <section id="about" className="section bg-marina-muted">
@@ -29,7 +30,7 @@ export function AboutSection() {
           
           <div>
             <h2 className="h2 text-marina mb-6">
-              {isLoading ? t('about.defaultTitle') : aboutContent?.title || t('about.defaultTitle')}
+              {isLoading ? defaultTitle : aboutContent?.title || defaultTitle}
             </h2>
             
             <div className="prose prose-lg max-w-none">
@@ -37,14 +38,14 @@ export function AboutSection() {
                 <div 
                   className="text-gray-600"
                   dangerouslySetInnerHTML={{ 
-                    __html: t('about.defaultContent')
+                    __html: defaultContent 
                   }} 
                 />
               ) : (
                 <div 
                   className="text-gray-600"
                   dangerouslySetInnerHTML={{ 
-                    __html: aboutContent?.content || t('about.defaultContent')
+                    __html: aboutContent?.content || defaultContent
                   }} 
                 />
               )}

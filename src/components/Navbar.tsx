@@ -3,14 +3,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Ship } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
-  const { t } = useLanguage();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 shadow-sm py-4 transition-all duration-300">
@@ -24,27 +21,25 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-6 lg:space-x-8">
-              <Link to="/" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">{t('nav.home')}</Link>
-              <a href="#services" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">{t('nav.services')}</a>
-              <a href="#about" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">{t('nav.about')}</a>
-              <a href="#gallery" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">{t('nav.gallery')}</a>
-              <a href="#for-sale" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">{t('nav.forSale')}</a>
-              <a href="#contact" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">{t('nav.contact')}</a>
+              <Link to="/" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Home</Link>
+              <a href="#services" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Services</a>
+              <a href="#about" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">About</a>
+              <a href="#gallery" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Gallery</a>
+              <a href="#for-sale" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">For Sale</a>
+              <a href="#contact" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Contact</a>
             </div>
             
             <div className="flex items-center space-x-4">
-              <LanguageSwitcher />
-              
               {user ? (
                 <Link to="/admin">
                   <Button variant="outline" className="border-marina text-marina hover:bg-marina hover:text-white whitespace-nowrap">
-                    {t('nav.admin')}
+                    Admin
                   </Button>
                 </Link>
               ) : (
                 <Link to="/login">
                   <Button variant="outline" className="border-marina text-marina hover:bg-marina hover:text-white whitespace-nowrap">
-                    {t('nav.login')}
+                    Login
                   </Button>
                 </Link>
               )}
@@ -53,7 +48,6 @@ export function Navbar() {
 
           {/* Mobile Navigation Toggle */}
           <div className="md:hidden flex items-center space-x-2">
-            <LanguageSwitcher />
             <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
               {isOpen ? (
                 <X className="h-6 w-6 text-marina" />
@@ -74,54 +68,54 @@ export function Navbar() {
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              {t('nav.home')}
+              Home
             </Link>
             <a 
               href="#services" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              {t('nav.services')}
+              Services
             </a>
             <a 
               href="#about" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              {t('nav.about')}
+              About
             </a>
             <a 
               href="#gallery" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              {t('nav.gallery')}
+              Gallery
             </a>
             <a 
               href="#for-sale" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              {t('nav.forSale')}
+              For Sale
             </a>
             <a 
               href="#contact" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              {t('nav.contact')}
+              Contact
             </a>
             
             {user ? (
               <Link to="/admin" onClick={() => setIsOpen(false)}>
                 <Button className="w-full bg-marina text-white hover:bg-marina-light">
-                  {t('nav.admin')}
+                  Admin
                 </Button>
               </Link>
             ) : (
               <Link to="/login" onClick={() => setIsOpen(false)}>
                 <Button className="w-full bg-marina text-white hover:bg-marina-light">
-                  {t('nav.login')}
+                  Login
                 </Button>
               </Link>
             )}

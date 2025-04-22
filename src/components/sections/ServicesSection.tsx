@@ -1,21 +1,17 @@
-
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from "@/components/ui/carousel";
 import { ServiceSlideshow } from '@/components/services/ServiceSlideshow';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export function ServicesSection() {
   const { data: services, isLoading } = useQuery({
     queryKey: ['services'],
     queryFn: getServices
   });
+
+  const [selectedService, setSelectedService] = useState<typeof defaultServices[0] | null>(null);
 
   const defaultServices = [
     {
@@ -75,7 +71,8 @@ export function ServicesSection() {
     return (
       <div 
         key={service.id} 
-        className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full"
+        className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full cursor-pointer"
+        onClick={() => setSelectedService(service)}
       >
         {hasImages ? (
           <div className="mb-6">
@@ -118,6 +115,33 @@ export function ServicesSection() {
             displayServices.map(renderServiceCard)
           )}
         </div>
+
+        {selectedService && (
+          <Dialog open={!!selectedService} onOpenChange={(open) => !open && setSelectedService(null)}>
+            <DialogContent className="sm:max-w-[800px]">
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-marina font-display">{selectedService.title}</DialogTitle>
+              </DialogHeader>
+              
+              <div className="mt-4">
+                {selectedService.image_urls && selectedService.image_urls.length > 0 ? (
+                  <ServiceSlideshow 
+                    imageUrls={selectedService.image_urls} 
+                    title={selectedService.title} 
+                  />
+                ) : (
+                  <div className="flex justify-center p-8">
+                    {getIconComponent(selectedService.icon)}
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-6">
+                <p className="text-gray-700">{selectedService.description}</p>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { getForSaleItems } from '@/lib/supabase';
 import { ChevronLeft, ChevronRight, Euro, X, CalendarDays } from 'lucide-react';
@@ -85,6 +84,25 @@ export function ForSaleSection() {
       month: '2-digit',
       year: 'numeric'
     }).format(date);
+  };
+
+  const handleContact = (item: typeof displayItems[0]) => {
+    setSelectedItem(null);
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      const subjectSelect = contactSection.querySelector('select[name="subject"]') as HTMLSelectElement;
+      const messageTextarea = contactSection.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+      
+      if (subjectSelect) {
+        subjectSelect.value = 'For Sale Items';
+      }
+      
+      if (messageTextarea) {
+        messageTextarea.value = `I am interested in the ${item.title} (${formatPrice(item.price)}).\n\nPlease provide more information about this item.`;
+      }
+      
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -193,7 +211,10 @@ export function ForSaleSection() {
               </div>
 
               <DialogFooter className="mt-6">
-                <Button className="bg-marina hover:bg-marina-light text-white w-full sm:w-auto">
+                <Button 
+                  className="bg-marina hover:bg-marina-light text-white w-full sm:w-auto"
+                  onClick={() => selectedItem && handleContact(selectedItem)}
+                >
                   Contact About This Item
                 </Button>
               </DialogFooter>

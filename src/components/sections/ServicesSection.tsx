@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
@@ -22,7 +23,7 @@ export function ServicesSection() {
       title: "Boat Maintenance",
       description: "Professional maintenance services for all types of boats, keeping your vessel in optimal condition year-round.",
       icon: "Wrench",
-      image_url: "",
+      image_urls: [] as string[],
       created_at: new Date().toISOString()
     },
     {
@@ -30,7 +31,7 @@ export function ServicesSection() {
       title: "Docking & Mooring",
       description: "Secure docking facilities with modern amenities and 24/7 surveillance to keep your boat safe.",
       icon: "Anchor",
-      image_url: "",
+      image_urls: [] as string[],
       created_at: new Date().toISOString()
     },
     {
@@ -38,7 +39,7 @@ export function ServicesSection() {
       title: "Boat Insurance",
       description: "Comprehensive insurance options tailored to your specific needs and vessel type.",
       icon: "ShieldCheck",
-      image_url: "",
+      image_urls: [] as string[],
       created_at: new Date().toISOString()
     },
     {
@@ -46,7 +47,7 @@ export function ServicesSection() {
       title: "Emergency Assistance",
       description: "Rapid response service for any boating emergencies on the Mosel river.",
       icon: "LifeBuoy",
-      image_url: "",
+      image_urls: [] as string[],
       created_at: new Date().toISOString()
     }
   ];

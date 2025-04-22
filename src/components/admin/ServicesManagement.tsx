@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,7 +21,7 @@ export function ServicesManagement() {
     title: '',
     description: '',
     icon: 'Wrench',
-    image_url: '',
+    image_urls: [] as string[],
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -174,7 +175,7 @@ export function ServicesManagement() {
       title: service.title,
       description: service.description,
       icon: service.icon,
-      image_url: service.image_url,
+      image_urls: service.image_urls || [],
     });
     setOpen(true);
   };
@@ -190,7 +191,7 @@ export function ServicesManagement() {
       title: '',
       description: '',
       icon: 'Wrench',
-      image_url: '',
+      image_urls: [],
     });
     setImageFile(null);
     setEditingService(null);

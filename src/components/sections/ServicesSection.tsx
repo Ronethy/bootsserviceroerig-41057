@@ -1,9 +1,10 @@
+
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
 import { ServiceSlideshow } from '@/components/services/ServiceSlideshow';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export function ServicesSection() {
   const { data: services, isLoading } = useQuery({
@@ -118,26 +119,26 @@ export function ServicesSection() {
 
         {selectedService && (
           <Dialog open={!!selectedService} onOpenChange={(open) => !open && setSelectedService(null)}>
-            <DialogContent className="sm:max-w-[800px]">
+            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle className="text-2xl text-marina font-display">{selectedService.title}</DialogTitle>
+                <DialogDescription>
+                  <p className="text-gray-700 mt-2">{selectedService.description}</p>
+                </DialogDescription>
               </DialogHeader>
               
-              <div className="mt-4">
+              <div className="mt-6">
                 {selectedService.image_urls && selectedService.image_urls.length > 0 ? (
                   <ServiceSlideshow 
                     imageUrls={selectedService.image_urls} 
-                    title={selectedService.title} 
+                    title={selectedService.title}
+                    fullSize={true}
                   />
                 ) : (
                   <div className="flex justify-center p-8">
                     {getIconComponent(selectedService.icon)}
                   </div>
                 )}
-              </div>
-
-              <div className="mt-6">
-                <p className="text-gray-700">{selectedService.description}</p>
               </div>
             </DialogContent>
           </Dialog>

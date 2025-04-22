@@ -10,9 +10,10 @@ import {
 interface ServiceSlideshowProps {
   imageUrls: string[];
   title: string;
+  fullSize?: boolean;
 }
 
-export function ServiceSlideshow({ imageUrls, title }: ServiceSlideshowProps) {
+export function ServiceSlideshow({ imageUrls, title, fullSize = false }: ServiceSlideshowProps) {
   if (!imageUrls || imageUrls.length === 0) {
     return null;
   }
@@ -22,11 +23,11 @@ export function ServiceSlideshow({ imageUrls, title }: ServiceSlideshowProps) {
       <CarouselContent>
         {imageUrls.map((imageUrl, index) => (
           <CarouselItem key={index} className="basis-full">
-            <div className="h-48 w-full relative">
+            <div className={`${fullSize ? "h-[500px]" : "h-48"} w-full relative`}>
               <img 
                 src={imageUrl} 
                 alt={`${title} image ${index + 1}`} 
-                className="w-full h-full object-cover absolute inset-0"
+                className="w-full h-full object-contain absolute inset-0"
               />
             </div>
           </CarouselItem>

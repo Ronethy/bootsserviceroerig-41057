@@ -147,7 +147,7 @@ export type Database = {
           description: string
           icon: string
           id: number
-          image_url: string
+          image_urls: string[]
           title: string
         }
         Insert: {
@@ -155,7 +155,7 @@ export type Database = {
           description: string
           icon: string
           id?: number
-          image_url: string
+          image_urls?: string[]
           title: string
         }
         Update: {
@@ -163,7 +163,7 @@ export type Database = {
           description?: string
           icon?: string
           id?: number
-          image_url?: string
+          image_urls?: string[]
           title?: string
         }
         Relationships: []

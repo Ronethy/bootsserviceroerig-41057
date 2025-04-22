@@ -45,7 +45,7 @@ export type Service = {
   title: string;
   description: string;
   icon: string;
-  image_url: string;
+  image_urls: string[];
   created_at: string;
 };
 

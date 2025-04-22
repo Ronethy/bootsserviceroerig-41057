@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -123,28 +122,31 @@ export function ServicesManagement() {
     setFormData(prev => ({ ...prev, icon: value }));
   };
 
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImageFile(e.target.files[0]);
+    if (e.target.files) {
+      setImageFiles(Array.from(e.target.files));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    let imageUrl = editingService?.image_url || '';
+    let imageUrls: string[] = editingService?.image_urls || [];
     
-    if (imageFile) {
+    if (imageFiles.length > 0) {
       setIsUploading(true);
       try {
-        const uploadedUrl = await uploadFile(imageFile, 'marina-content', 'services');
-        if (uploadedUrl) {
-          imageUrl = uploadedUrl;
-        }
+        const uploadPromises = imageFiles.map(file => 
+          uploadFile(file, 'marina-content', 'services')
+        );
+        const newImageUrls = await Promise.all(uploadPromises);
+        imageUrls = [...imageUrls, ...newImageUrls.filter(url => url !== null) as string[]];
       } catch (error) {
         toast({
           title: 'Error',
-          description: 'Failed to upload image',
+          description: 'Failed to upload images',
           variant: 'destructive',
         });
         setIsUploading(false);
@@ -156,7 +158,7 @@ export function ServicesManagement() {
     
     const serviceData = {
       ...formData,
-      image_url: imageUrl,
+      image_urls: imageUrls,
     };
     
     if (editingService) {
@@ -217,6 +219,7 @@ export function ServicesManagement() {
     }
   };
 
+  // Update form in dialog to support multiple image uploads
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -277,21 +280,24 @@ export function ServicesManagement() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="image" className="text-sm font-medium">Image</label>
+                  <label htmlFor="images" className="text-sm font-medium">Images</label>
                   <Input 
-                    id="image" 
+                    id="images" 
                     type="file" 
+                    multiple 
                     onChange={handleFileChange} 
                     accept="image/*"
                   />
-                  {formData.image_url && (
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500 mb-2">Current image:</p>
-                      <img 
-                        src={formData.image_url} 
-                        alt="Service preview" 
-                        className="w-32 h-32 object-cover rounded-lg border"
-                      />
+                  {formData.image_urls && formData.image_urls.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {formData.image_urls.map((url, index) => (
+                        <img 
+                          key={index}
+                          src={url} 
+                          alt={`Service preview ${index + 1}`} 
+                          className="w-32 h-32 object-cover rounded-lg border"
+                        />
+                      ))}
                     </div>
                   )}
                 </div>
@@ -366,14 +372,24 @@ export function ServicesManagement() {
                         : service.description}
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
-                      {service.image_url ? (
-                        <img 
-                          src={service.image_url} 
-                          alt={service.title} 
-                          className="w-10 h-10 object-cover rounded"
-                        />
+                      {service.image_urls && service.image_urls.length > 0 ? (
+                        <div className="flex gap-2">
+                          {service.image_urls.slice(0, 3).map((url, index) => (
+                            <img 
+                              key={index}
+                              src={url} 
+                              alt={`${service.title} image ${index + 1}`} 
+                              className="w-10 h-10 object-cover rounded"
+                            />
+                          ))}
+                          {service.image_urls.length > 3 && (
+                            <span className="text-gray-400">
+                              +{service.image_urls.length - 3} more
+                            </span>
+                          )}
+                        </div>
                       ) : (
-                        <span className="text-gray-400">No image</span>
+                        <span className="text-gray-400">No images</span>
                       )}
                     </TableCell>
                     <TableCell className="text-right">

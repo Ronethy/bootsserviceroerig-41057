@@ -1,25 +1,42 @@
 
 import { useState } from 'react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 interface ServiceSlideshowProps {
-  imageUrl: string;
+  imageUrls: string[];
   title: string;
 }
 
-export function ServiceSlideshow({ imageUrl, title }: ServiceSlideshowProps) {
-  if (!imageUrl || imageUrl.trim() === '') {
+export function ServiceSlideshow({ imageUrls, title }: ServiceSlideshowProps) {
+  if (!imageUrls || imageUrls.length === 0) {
     return null;
   }
 
   return (
-    <div className="w-full overflow-hidden rounded-md">
-      <img 
-        src={imageUrl} 
-        alt={title} 
-        className="w-full h-48 object-cover transition-transform duration-500"
-      />
-    </div>
+    <Carousel className="w-full overflow-hidden rounded-md">
+      <CarouselContent>
+        {imageUrls.map((imageUrl, index) => (
+          <CarouselItem key={index} className="basis-full">
+            <img 
+              src={imageUrl} 
+              alt={`${title} image ${index + 1}`} 
+              className="w-full h-48 object-cover transition-transform duration-500"
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      {imageUrls.length > 1 && (
+        <>
+          <CarouselPrevious />
+          <CarouselNext />
+        </>
+      )}
+    </Carousel>
   );
 }

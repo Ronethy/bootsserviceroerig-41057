@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
@@ -9,7 +8,7 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from "@/components/ui/carousel";
-import { useState } from 'react';
+import { ServiceSlideshow } from '@/components/services/ServiceSlideshow';
 
 export function ServicesSection() {
   const { data: services, isLoading } = useQuery({
@@ -17,7 +16,6 @@ export function ServicesSection() {
     queryFn: getServices
   });
 
-  // Default services in case none are available from Supabase
   const defaultServices = [
     {
       id: 1,
@@ -55,7 +53,6 @@ export function ServicesSection() {
 
   const displayServices = services?.length ? services : defaultServices;
 
-  // Function to map string icon names to actual icons
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
       case 'Wrench':
@@ -71,21 +68,19 @@ export function ServicesSection() {
     }
   };
 
-  // Rendering a service card with slideshow if image is available
   const renderServiceCard = (service: typeof displayServices[0]) => {
-    const hasImage = service.image_url && service.image_url.trim() !== '';
+    const hasImages = service.image_urls && service.image_urls.length > 0;
     
     return (
       <div 
         key={service.id} 
         className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
       >
-        {hasImage ? (
-          <div className="mb-6 h-48 overflow-hidden rounded-md">
-            <img 
-              src={service.image_url} 
-              alt={service.title} 
-              className="w-full h-full object-cover"
+        {hasImages ? (
+          <div className="mb-6">
+            <ServiceSlideshow 
+              imageUrls={service.image_urls} 
+              title={service.title} 
             />
           </div>
         ) : (
@@ -115,7 +110,6 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {isLoading ? (
-            // Loading skeleton
             Array(4).fill(0).map((_, idx) => (
               <div key={idx} className="bg-gray-100 animate-pulse rounded-lg p-8 h-64"></div>
             ))

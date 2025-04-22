@@ -23,18 +23,20 @@ export function ServiceSlideshow({ imageUrls, title }: ServiceSlideshowProps) {
       <CarouselContent>
         {imageUrls.map((imageUrl, index) => (
           <CarouselItem key={index} className="basis-full">
-            <img 
-              src={imageUrl} 
-              alt={`${title} image ${index + 1}`} 
-              className="w-full h-48 object-cover transition-transform duration-500"
-            />
+            <div className="h-48 w-full relative">
+              <img 
+                src={imageUrl} 
+                alt={`${title} image ${index + 1}`} 
+                className="w-full h-full object-cover absolute inset-0"
+              />
+            </div>
           </CarouselItem>
         ))}
       </CarouselContent>
       {imageUrls.length > 1 && (
         <>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
         </>
       )}
     </Carousel>

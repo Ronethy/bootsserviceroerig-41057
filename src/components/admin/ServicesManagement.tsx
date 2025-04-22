@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getServices, uploadFile, supabase, Service } from '@/lib/supabase';
-import { Wrench, Anchor, ShieldCheck, LifeBuoy, Plus, Pencil, Trash2, Upload, Loader2 } from 'lucide-react';
+import { Wrench, Anchor, ShieldCheck, LifeBuoy, Plus, Pencil, Trash2, Upload, Loader2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -131,10 +131,17 @@ export function ServicesManagement() {
     }
   };
 
+  const handleDeleteImage = (indexToDelete: number) => {
+    setFormData(prev => ({
+      ...prev,
+      image_urls: prev.image_urls.filter((_, index) => index !== indexToDelete)
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    let imageUrls: string[] = editingService?.image_urls || [];
+    let imageUrls: string[] = formData.image_urls || [];
     
     if (imageFiles.length > 0) {
       setIsUploading(true);
@@ -194,6 +201,7 @@ export function ServicesManagement() {
       image_urls: [],
     });
     setImageFile(null);
+    setImageFiles([]);
     setEditingService(null);
   };
 
@@ -292,12 +300,20 @@ export function ServicesManagement() {
                   {formData.image_urls && formData.image_urls.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-2">
                       {formData.image_urls.map((url, index) => (
-                        <img 
-                          key={index}
-                          src={url} 
-                          alt={`Service preview ${index + 1}`} 
-                          className="w-32 h-32 object-cover rounded-lg border"
-                        />
+                        <div key={index} className="relative group">
+                          <img 
+                            src={url} 
+                            alt={`Service preview ${index + 1}`} 
+                            className="w-24 h-24 object-cover rounded-lg border"
+                          />
+                          <button
+                            type="button"
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => handleDeleteImage(index)}
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
                       ))}
                     </div>
                   )}

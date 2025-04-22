@@ -75,7 +75,7 @@ export function ServicesSection() {
     return (
       <div 
         key={service.id} 
-        className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
+        className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full"
       >
         {hasImages ? (
           <div className="mb-6">
@@ -89,10 +89,10 @@ export function ServicesSection() {
             {getIconComponent(service.icon)}
           </div>
         )}
-        <h3 className="text-xl font-display font-semibold text-marina-dark mb-4">
+        <h3 className="text-xl font-display font-semibold text-marina-dark mb-4 truncate" title={service.title}>
           {service.title}
         </h3>
-        <p className="text-gray-600">
+        <p className="text-gray-600 flex-grow">
           {service.description}
         </p>
       </div>

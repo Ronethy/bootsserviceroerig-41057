@@ -1,8 +1,10 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { getForSaleItems } from '@/lib/supabase';
 import { ForSaleCard } from '@/components/for-sale/ForSaleCard';
 import { ForSaleItemDialog } from '@/components/for-sale/ForSaleItemDialog';
+import { formatPrice } from '@/lib/utils';
 
 export function ForSaleSection() {
   const { data: forSaleItems, isLoading } = useQuery({

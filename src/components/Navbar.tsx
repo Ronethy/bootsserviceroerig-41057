@@ -21,12 +21,12 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-6 lg:space-x-8">
-              <Link to="/" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Home</Link>
-              <a href="#services" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Services</a>
-              <a href="#about" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">About</a>
-              <a href="#gallery" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Gallery</a>
-              <a href="#for-sale" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">For Sale</a>
-              <a href="#contact" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Contact</a>
+              <Link to="/" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Startseite</Link>
+              <a href="#services" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Dienstleistungen</a>
+              <a href="#about" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Über uns</a>
+              <a href="#gallery" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Galerie</a>
+              <a href="#for-sale" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Zu verkaufen</a>
+              <a href="#contact" className="text-marina hover:text-marina-accent font-medium whitespace-nowrap">Kontakt</a>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -39,7 +39,7 @@ export function Navbar() {
               ) : (
                 <Link to="/login">
                   <Button variant="outline" className="border-marina text-marina hover:bg-marina hover:text-white whitespace-nowrap">
-                    Login
+                    Anmelden
                   </Button>
                 </Link>
               )}
@@ -48,7 +48,7 @@ export function Navbar() {
 
           {/* Mobile Navigation Toggle */}
           <div className="md:hidden flex items-center space-x-2">
-            <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+            <button onClick={() => setIsOpen(!isOpen)} aria-label="Menü öffnen">
               {isOpen ? (
                 <X className="h-6 w-6 text-marina" />
               ) : (
@@ -68,42 +68,42 @@ export function Navbar() {
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              Home
+              Startseite
             </Link>
             <a 
               href="#services" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              Services
+              Dienstleistungen
             </a>
             <a 
               href="#about" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              About
+              Über uns
             </a>
             <a 
               href="#gallery" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              Gallery
+              Galerie
             </a>
             <a 
               href="#for-sale" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              For Sale
+              Zu verkaufen
             </a>
             <a 
               href="#contact" 
               className="text-marina hover:text-marina-accent font-medium px-4 py-2 rounded-md hover:bg-marina-muted/10"
               onClick={() => setIsOpen(false)}
             >
-              Contact
+              Kontakt
             </a>
             
             {user ? (
@@ -115,7 +115,7 @@ export function Navbar() {
             ) : (
               <Link to="/login" onClick={() => setIsOpen(false)}>
                 <Button className="w-full bg-marina text-white hover:bg-marina-light">
-                  Login
+                  Anmelden
                 </Button>
               </Link>
             )}

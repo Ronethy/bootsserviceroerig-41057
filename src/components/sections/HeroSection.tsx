@@ -13,8 +13,8 @@ export function HeroSection() {
   const defaultBg = "https://images.unsplash.com/photo-1540946485063-a40da27545f7?auto=format&fit=crop&q=80&w=2070";
   const bgImageUrl = heroContent?.image_url || defaultBg;
 
-  const defaultTitle = "Welcome to Mosel Marina";
-  const defaultSubtitle = "Your trusted marina at Güls an der Mosel";
+  const defaultTitle = "Willkommen bei Mosel Marina";
+  const defaultSubtitle = "Ihr vertrauensvoller Marina-Partner in Güls an der Mosel";
 
   return (
     <section

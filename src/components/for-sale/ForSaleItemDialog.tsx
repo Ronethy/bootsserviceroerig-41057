@@ -37,7 +37,7 @@ export function ForSaleItemDialog({ item, onClose, onContact }: ForSaleItemDialo
             {item.year_built && (
               <div className="flex items-center text-gray-700 font-medium">
                 <CalendarDays className="h-4 w-4 mr-1" />
-                <span>Datum: {formatDate(item.year_built)}</span>
+                <span>Baujahr: {formatDate(item.year_built)}</span>
               </div>
             )}
           </div>
@@ -52,7 +52,7 @@ export function ForSaleItemDialog({ item, onClose, onContact }: ForSaleItemDialo
                     <div className="aspect-video relative rounded-lg overflow-hidden">
                       <img 
                         src={url} 
-                        alt={`${item.title} - image ${idx + 1}`}
+                        alt={`${item.title} - Bild ${idx + 1}`}
                         className="object-cover w-full h-full"
                       />
                     </div>
@@ -68,7 +68,7 @@ export function ForSaleItemDialog({ item, onClose, onContact }: ForSaleItemDialo
         </div>
 
         <div className="mt-6">
-          <h4 className="text-lg font-semibold mb-2">Description</h4>
+          <h4 className="text-lg font-semibold mb-2">Beschreibung</h4>
           <p className="text-gray-700">{item.description}</p>
         </div>
 
@@ -77,7 +77,7 @@ export function ForSaleItemDialog({ item, onClose, onContact }: ForSaleItemDialo
             className="bg-marina hover:bg-marina-light text-white w-full sm:w-auto"
             onClick={() => onContact(item)}
           >
-            Contact About This Item
+            Interesse an diesem Artikel
           </Button>
         </DialogFooter>
       </DialogContent>

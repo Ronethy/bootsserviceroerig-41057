@@ -17,11 +17,11 @@ export function ContactManagement() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-marina-dark">Contact Information Management</h2>
+      <h2 className="text-2xl font-bold text-marina-dark">Kontaktinformationen verwalten</h2>
       
       <Card>
         <CardHeader>
-          <CardTitle>Edit Contact Information</CardTitle>
+          <CardTitle>Kontaktinformationen bearbeiten</CardTitle>
         </CardHeader>
         <CardContent>
           <ContactForm 

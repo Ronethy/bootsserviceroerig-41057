@@ -31,50 +31,50 @@ export function Dashboard() {
   const dashboardSections = [
     {
       id: 'hero',
-      name: 'Hero Section',
-      description: 'Edit the main banner of your website',
+      name: 'Hero-Bereich',
+      description: 'Bearbeiten Sie das Hauptbanner Ihrer Website',
       icon: <Image className="h-5 w-5" />,
       component: <HeroManagement />
     },
     {
       id: 'about',
-      name: 'About Content',
-      description: 'Update information about your marina',
+      name: 'Über uns Inhalt',
+      description: 'Aktualisieren Sie Informationen über Ihre Marina',
       icon: <FileText className="h-5 w-5" />,
       component: <AboutManagement />
     },
     {
       id: 'gallery',
-      name: 'Gallery',
-      description: 'Manage images in your gallery',
+      name: 'Galerie',
+      description: 'Verwalten Sie Bilder in Ihrer Galerie',
       icon: <Image className="h-5 w-5" />,
       component: <GalleryManagement />
     },
     {
       id: 'services',
-      name: 'Services',
-      description: 'Edit services offered at your marina',
+      name: 'Dienstleistungen',
+      description: 'Bearbeiten Sie die in Ihrer Marina angebotenen Dienstleistungen',
       icon: <Anchor className="h-5 w-5" />,
       component: <ServicesManagement />
     },
     {
       id: 'for-sale',
-      name: 'For Sale Items',
-      description: 'Manage items available for purchase',
+      name: 'Verkaufsartikel',
+      description: 'Verwalten Sie zum Verkauf stehende Artikel',
       icon: <DollarSign className="h-5 w-5" />,
       component: <ForSaleManagement />
     },
     {
       id: 'contact',
-      name: 'Contact Info',
-      description: 'Update contact details and opening hours',
+      name: 'Kontaktinfo',
+      description: 'Aktualisieren Sie Kontaktdaten und Öffnungszeiten',
       icon: <Phone className="h-5 w-5" />,
       component: <ContactManagement />
     },
     {
       id: 'users',
-      name: 'User Management',
-      description: 'Manage admin users',
+      name: 'Benutzerverwaltung',
+      description: 'Admin-Benutzer verwalten',
       icon: <UserPlus className="h-5 w-5" />,
       component: <UserManagement />
     },
@@ -102,7 +102,7 @@ export function Dashboard() {
                   className="w-full" 
                   onClick={() => setActiveSection(section.id)}
                 >
-                  Manage
+                  Verwalten
                 </Button>
               </CardFooter>
             </Card>
@@ -116,7 +116,7 @@ export function Dashboard() {
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => setActiveSection('overview')}>
               <LayoutDashboard className="mr-2 h-4 w-4" />
-              Back to Overview
+              Zurück zur Übersicht
             </Button>
           </div>
           {section?.component}
@@ -129,9 +129,9 @@ export function Dashboard() {
     <div className="space-y-6">
       {activeSection === 'overview' && (
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold text-marina-dark">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold text-marina-dark">Admin-Dashboard</h1>
           <p className="text-gray-600">
-            Welcome to your marina's content management system. Select a section below to manage its content.
+            Willkommen im Content-Management-System Ihrer Marina. Wählen Sie unten einen Bereich aus, um dessen Inhalt zu verwalten.
           </p>
         </div>
       )}

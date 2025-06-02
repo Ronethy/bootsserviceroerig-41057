@@ -1,9 +1,10 @@
+
 import { useState } from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getContactInfo } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export function ContactSection() {
@@ -34,8 +35,8 @@ export function ContactSection() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
-        title: "Message Sent!",
-        description: "Thank you for contacting us. We'll get back to you shortly.",
+        title: "Nachricht gesendet!",
+        description: "Vielen Dank für Ihre Kontaktaufnahme. Wir werden uns in Kürze bei Ihnen melden.",
       });
       
       setFormData({
@@ -45,10 +46,10 @@ export function ContactSection() {
         message: ''
       });
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Fehler beim Senden des Formulars:', error);
       toast({
-        title: "Error",
-        description: "There was a problem sending your message. Please try again.",
+        title: "Fehler",
+        description: "Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
     } finally {
@@ -60,15 +61,15 @@ export function ContactSection() {
     <section id="contact" className="section bg-white">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="h2 text-marina mb-4">Contact Us</h2>
+          <h2 className="h2 text-marina mb-4">Kontaktieren Sie uns</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Have questions or need more information? Send us a message and we'll get back to you as soon as possible.
+            Haben Sie Fragen oder benötigen weitere Informationen? Senden Sie uns eine Nachricht und wir werden uns so schnell wie möglich bei Ihnen melden.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">Get In Touch</h3>
+            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">Kontakt aufnehmen</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -89,7 +90,7 @@ export function ContactSection() {
                 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
+                    E-Mail
                   </label>
                   <input
                     type="email"
@@ -105,7 +106,7 @@ export function ContactSection() {
               
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone (optional)
+                  Telefon (optional)
                 </label>
                 <input
                   type="tel"
@@ -119,7 +120,7 @@ export function ContactSection() {
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
+                  Nachricht
                 </label>
                 <textarea
                   id="message"
@@ -137,19 +138,19 @@ export function ContactSection() {
                 className="w-full md:w-auto bg-marina hover:bg-marina-light text-white px-8 py-3"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? "Wird gesendet..." : "Nachricht senden"}
               </Button>
             </form>
           </div>
           
           <div>
-            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">Our Location</h3>
+            <h3 className="text-2xl font-display font-semibold text-marina-dark mb-6">Unser Standort</h3>
             
             <div className="mb-8">
               <AspectRatio ratio={16/9}>
                 <img 
                   src={contactInfo?.location_image || "/location-image.jpg"} 
-                  alt="Our Location"
+                  alt="Unser Standort"
                   className="rounded-lg object-cover w-full h-full"
                 />
               </AspectRatio>
@@ -159,9 +160,9 @@ export function ContactSection() {
               <div className="flex items-start">
                 <MapPin className="h-6 w-6 text-marina mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-marina-dark mb-1">Address</h4>
+                  <h4 className="font-semibold text-marina-dark mb-1">Adresse</h4>
                   <p className="text-gray-600">
-                    {contactInfo?.address || "Bootsservice Rörig, Güls an der Mosel, 56073 Koblenz, Germany"}
+                    {contactInfo?.address || "Bootsservice Rörig, Güls an der Mosel, 56073 Koblenz, Deutschland"}
                   </p>
                 </div>
               </div>
@@ -169,7 +170,7 @@ export function ContactSection() {
               <div className="flex items-start">
                 <Phone className="h-6 w-6 text-marina mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-marina-dark mb-1">Phone</h4>
+                  <h4 className="font-semibold text-marina-dark mb-1">Telefon</h4>
                   <p className="text-gray-600">
                     {contactInfo?.phone || "+49 123 456 7890"}
                   </p>
@@ -179,7 +180,7 @@ export function ContactSection() {
               <div className="flex items-start">
                 <Mail className="h-6 w-6 text-marina mr-4 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-marina-dark mb-1">Email</h4>
+                  <h4 className="font-semibold text-marina-dark mb-1">E-Mail</h4>
                   <p className="text-gray-600">
                     {contactInfo?.email || "info@mosel-marina.de"}
                   </p>

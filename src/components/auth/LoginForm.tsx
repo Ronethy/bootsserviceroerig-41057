@@ -28,7 +28,7 @@ export function LoginForm() {
       await signIn(email, password);
       navigate('/admin');
     } catch (err: any) {
-      setError(err.message || 'Failed to sign in');
+      setError(err.message || 'Anmeldung fehlgeschlagen');
     } finally {
       setLoading(false);
     }
@@ -41,9 +41,9 @@ export function LoginForm() {
           <div className="flex justify-center">
             <Ship className="h-14 w-14 text-marina" />
           </div>
-          <h2 className="mt-6 text-3xl font-display font-bold text-marina">Admin Login</h2>
+          <h2 className="mt-6 text-3xl font-display font-bold text-marina">Admin-Anmeldung</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Enter your credentials to access the admin dashboard
+            Geben Sie Ihre Anmeldedaten ein, um auf das Admin-Dashboard zuzugreifen
           </p>
         </div>
         
@@ -57,7 +57,7 @@ export function LoginForm() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="mb-4">
               <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">
-                Email address
+                E-Mail-Adresse
               </label>
               <input
                 id="email-address"
@@ -68,13 +68,13 @@ export function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-marina"
-                placeholder="Email address"
+                placeholder="E-Mail-Adresse"
               />
             </div>
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+                Passwort
               </label>
               <input
                 id="password"
@@ -85,7 +85,7 @@ export function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-marina"
-                placeholder="Password"
+                placeholder="Passwort"
               />
             </div>
           </div>
@@ -96,13 +96,13 @@ export function LoginForm() {
               className="w-full bg-marina hover:bg-marina-light text-white py-3"
               disabled={loading}
             >
-              {loading ? "Signing in..." : "Sign in"}
+              {loading ? "Wird angemeldet..." : "Anmelden"}
             </Button>
           </div>
           
           <div className="text-center text-sm">
             <a href="/" className="text-marina hover:text-marina-light">
-              Return to Website
+              Zurück zur Website
             </a>
           </div>
         </form>

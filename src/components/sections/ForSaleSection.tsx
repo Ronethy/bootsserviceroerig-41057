@@ -17,8 +17,8 @@ export function ForSaleSection() {
   const defaultItems = [
     {
       id: 1,
-      title: "Motor Yacht 28ft",
-      description: "Well-maintained 28ft motor yacht with a spacious cabin, perfect for weekend trips on the Mosel.",
+      title: "Motoryacht 28ft",
+      description: "Gut gepflegte 28ft Motoryacht mit geräumiger Kabine, perfekt für Wochenendausflüge auf der Mosel.",
       price: 45000,
       year_built: new Date('2015-05-15').getTime(),
       image_urls: [
@@ -30,8 +30,8 @@ export function ForSaleSection() {
     },
     {
       id: 2,
-      title: "Fishing Boat with Equipment",
-      description: "Fully equipped fishing boat, including rods, tackle, and sonar. Ready for your next fishing adventure.",
+      title: "Angelboot mit Ausrüstung",
+      description: "Vollständig ausgestattetes Angelboot, inklusive Ruten, Tackle und Sonar. Bereit für Ihr nächstes Angelabenteuer.",
       price: 12500,
       year_built: new Date('2018-08-22').getTime(),
       image_urls: [
@@ -42,8 +42,8 @@ export function ForSaleSection() {
     },
     {
       id: 3,
-      title: "Vintage Wooden Sailboat",
-      description: "Beautifully restored wooden sailboat from the 1950s. A true classic that turns heads on the water.",
+      title: "Vintage Holzsegelboot",
+      description: "Wunderschön restauriertes Holzsegelboot aus den 1950er Jahren. Ein wahrer Klassiker, der auf dem Wasser alle Blicke auf sich zieht.",
       price: 28900,
       year_built: new Date('1952-06-17').getTime(),
       image_urls: [
@@ -61,15 +61,10 @@ export function ForSaleSection() {
     setSelectedItem(null);
     const contactSection = document.getElementById('contact');
     if (contactSection) {
-      const subjectSelect = contactSection.querySelector('select[name="subject"]') as HTMLSelectElement;
       const messageTextarea = contactSection.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
       
-      if (subjectSelect) {
-        subjectSelect.value = 'For Sale Items';
-      }
-      
       if (messageTextarea) {
-        messageTextarea.value = `I am interested in the ${item.title} (${formatPrice(item.price)}).\n\nPlease provide more information about this item.`;
+        messageTextarea.value = `Ich interessiere mich für ${item.title} (${formatPrice(item.price)}).\n\nBitte stellen Sie mir weitere Informationen zu diesem Artikel zur Verfügung.`;
       }
       
       contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -80,9 +75,9 @@ export function ForSaleSection() {
     <section id="for-sale" className="section bg-marina-muted">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="h2 text-marina mb-4">For Sale</h2>
+          <h2 className="h2 text-marina mb-4">Zu verkaufen</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Browse our current selection of boats and equipment for sale. All items are thoroughly inspected and in excellent condition.
+            Durchstöbern Sie unsere aktuelle Auswahl an Booten und Ausrüstung zum Verkauf. Alle Artikel sind gründlich inspiziert und in ausgezeichnetem Zustand.
           </p>
         </div>
 

@@ -50,7 +50,7 @@ export function ForSaleCard({ item, onClick }: ForSaleCardProps) {
         <h3 className="text-xl font-display font-semibold text-marina mb-3">{item.title}</h3>
         <div className="mt-auto flex justify-center">
           <Button className="bg-marina hover:bg-marina-light text-white">
-            View Details
+            Details anzeigen
           </Button>
         </div>
       </div>

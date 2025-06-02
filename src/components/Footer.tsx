@@ -19,7 +19,7 @@ export function Footer() {
           <div>
             <h3 className="text-2xl font-display font-bold mb-4">Mosel Marina</h3>
             <p className="mb-4">
-              Your trusted marina at Güls an der Mosel
+              Ihr vertrauensvoller Marina-Partner in Güls an der Mosel
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white hover:text-marina-accent">
@@ -35,7 +35,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="text-xl font-display font-bold mb-4">Contact</h3>
+            <h3 className="text-xl font-display font-bold mb-4">Kontakt</h3>
             <div className="space-y-3">
               {contactInfo?.address && (
                 <div className="flex items-start">
@@ -65,25 +65,25 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="text-xl font-display font-bold mb-4">Opening Hours</h3>
+            <h3 className="text-xl font-display font-bold mb-4">Öffnungszeiten</h3>
             {contactInfo?.hours ? (
               <p className="whitespace-pre-line">{contactInfo.hours}</p>
             ) : (
               <div className="space-y-2">
-                <p>Monday - Friday: 9:00 - 18:00</p>
-                <p>Saturday: 9:00 - 14:00</p>
-                <p>Sunday: Closed</p>
+                <p>Montag - Freitag: 9:00 - 18:00</p>
+                <p>Samstag: 9:00 - 14:00</p>
+                <p>Sonntag: Geschlossen</p>
               </div>
             )}
           </div>
         </div>
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
-          <p>© {currentYear} Mosel Marina at Güls. All rights reserved.</p>
+          <p>© {currentYear} Mosel Marina in Güls. Alle Rechte vorbehalten.</p>
           <div className="mt-4 flex justify-center space-x-4 text-sm">
-            <a href="#" className="hover:underline">Privacy Policy</a>
-            <a href="#" className="hover:underline">Terms of Service</a>
-            <a href="#" className="hover:underline">Imprint</a>
+            <a href="#" className="hover:underline">Datenschutz</a>
+            <a href="#" className="hover:underline">Nutzungsbedingungen</a>
+            <a href="#" className="hover:underline">Impressum</a>
           </div>
         </div>
       </div>

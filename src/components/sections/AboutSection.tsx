@@ -12,8 +12,8 @@ export function AboutSection() {
   const defaultImage = "https://images.unsplash.com/photo-1583004231608-3ce598e9879a?auto=format&fit=crop&q=80&w=2070";
   const imageUrl = aboutContent?.image_url || defaultImage;
   
-  const defaultTitle = "About Bootsservice Rörig";
-  const defaultContent = "<p class=\"mb-4\">Located at the beautiful Mosel river in Güls, our marina has been serving boat enthusiasts for decades. We offer comprehensive services for all your boating needs, from maintenance and repairs to storage and accessories.</p><p>Our experienced team is passionate about boats and committed to providing excellent service to every customer. Whether you're a seasoned sailor or new to boating, we're here to help you make the most of your time on the water.</p>";
+  const defaultTitle = "Über Bootsservice Rörig";
+  const defaultContent = "<p class=\"mb-4\">An der wunderschönen Mosel in Güls gelegen, dient unser Marina seit Jahrzehnten Bootsliebhabern. Wir bieten umfassende Dienstleistungen für alle Ihre Bootsbedürfnisse, von Wartung und Reparaturen bis hin zu Lagerung und Zubehör.</p><p>Unser erfahrenes Team ist leidenschaftlich über Boote und engagiert sich dafür, jedem Kunden einen exzellenten Service zu bieten. Ob Sie ein erfahrener Segler oder neu beim Bootfahren sind, wir sind hier, um Ihnen dabei zu helfen, das Beste aus Ihrer Zeit auf dem Wasser zu machen.</p>";
 
   return (
     <section id="about" className="section bg-marina-muted">
@@ -22,7 +22,7 @@ export function AboutSection() {
           <div className="rounded-lg overflow-hidden shadow-xl w-full max-w-full sm:max-w-[80%] md:max-w-[70%] lg:max-w-full mx-auto">
             <img
               src={imageUrl}
-              alt="About Mosel Marina"
+              alt="Über Mosel Marina"
               className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
               style={{ aspectRatio: "4/3" }}
             />

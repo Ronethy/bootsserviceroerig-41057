@@ -17,32 +17,32 @@ export function ServicesSection() {
   const defaultServices = [
     {
       id: 1,
-      title: "Boat Maintenance",
-      description: "Professional maintenance services for all types of boats, keeping your vessel in optimal condition year-round.",
+      title: "Bootswartung",
+      description: "Professionelle Wartungsdienste für alle Arten von Booten, um Ihr Wasserfahrzeug das ganze Jahr über in optimalem Zustand zu halten.",
       icon: "Wrench",
       image_urls: [] as string[],
       created_at: new Date().toISOString()
     },
     {
       id: 2,
-      title: "Docking & Mooring",
-      description: "Secure docking facilities with modern amenities and 24/7 surveillance to keep your boat safe.",
+      title: "Anlegestelle & Liegeplatz",
+      description: "Sichere Anlegeeinrichtungen mit modernen Annehmlichkeiten und 24/7-Überwachung, um Ihr Boot sicher zu halten.",
       icon: "Anchor",
       image_urls: [] as string[],
       created_at: new Date().toISOString()
     },
     {
       id: 3,
-      title: "Boat Insurance",
-      description: "Comprehensive insurance options tailored to your specific needs and vessel type.",
+      title: "Bootsversicherung",
+      description: "Umfassende Versicherungsoptionen, die auf Ihre spezifischen Bedürfnisse und Ihren Bootstyp zugeschnitten sind.",
       icon: "ShieldCheck",
       image_urls: [] as string[],
       created_at: new Date().toISOString()
     },
     {
       id: 4,
-      title: "Emergency Assistance",
-      description: "Rapid response service for any boating emergencies on the Mosel river.",
+      title: "Notfall-Hilfe",
+      description: "Schnelle Hilfe bei allen Bootsnotfällen auf der Mosel.",
       icon: "LifeBuoy",
       image_urls: [] as string[],
       created_at: new Date().toISOString()
@@ -101,9 +101,9 @@ export function ServicesSection() {
     <section id="services" className="section bg-white hero-pattern">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="h2 text-marina mb-4">Our Services</h2>
+          <h2 className="h2 text-marina mb-4">Unsere Dienstleistungen</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            We offer a comprehensive range of services to meet all your boating needs
+            Wir bieten eine umfassende Palette von Dienstleistungen, um alle Ihre Bootsbedürfnisse zu erfüllen
           </p>
         </div>
 

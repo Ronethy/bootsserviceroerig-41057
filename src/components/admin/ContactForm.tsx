@@ -58,7 +58,7 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
         <div className="space-y-2">
           <label htmlFor="address" className="flex items-center gap-2 text-sm font-medium">
             <MapPin className="h-4 w-4" />
-            Address
+            Adresse
           </label>
           <Textarea 
             id="address" 
@@ -66,7 +66,7 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
             value={formData.address} 
             onChange={handleChange} 
             required 
-            placeholder="Full address of your marina"
+            placeholder="Vollständige Adresse Ihrer Marina"
             rows={3}
           />
         </div>
@@ -74,7 +74,7 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
         <div className="space-y-2">
           <label htmlFor="phone" className="flex items-center gap-2 text-sm font-medium">
             <PhoneCall className="h-4 w-4" />
-            Phone
+            Telefon
           </label>
           <Input 
             id="phone" 
@@ -82,14 +82,14 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
             value={formData.phone} 
             onChange={handleChange} 
             required 
-            placeholder="Contact phone number"
+            placeholder="Kontakt-Telefonnummer"
           />
         </div>
         
         <div className="space-y-2">
           <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium">
             <Mail className="h-4 w-4" />
-            Email
+            E-Mail
           </label>
           <Input 
             id="email" 
@@ -98,14 +98,14 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
             value={formData.email} 
             onChange={handleChange} 
             required 
-            placeholder="Contact email address"
+            placeholder="Kontakt-E-Mail-Adresse"
           />
         </div>
         
         <div className="space-y-2">
           <label htmlFor="hours" className="flex items-center gap-2 text-sm font-medium">
             <Clock className="h-4 w-4" />
-            Opening Hours
+            Öffnungszeiten
           </label>
           <Textarea 
             id="hours" 
@@ -113,7 +113,7 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
             value={formData.hours} 
             onChange={handleChange} 
             required 
-            placeholder="Opening hours information"
+            placeholder="Informationen zu den Öffnungszeiten"
             rows={3}
           />
         </div>
@@ -132,12 +132,12 @@ export function ContactForm({ contactInfo, isSubmitting, onSubmit }: ContactForm
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Saving...
+            Wird gespeichert...
           </>
         ) : (
           <>
             <Save className="mr-2 h-4 w-4" />
-            Save Changes
+            Änderungen speichern
           </>
         )}
       </Button>

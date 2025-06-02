@@ -24,29 +24,29 @@ export function GallerySection() {
   const defaultImages = [
     {
       id: 1,
-      title: "Marina View",
-      description: "Beautiful view of the marina at sunset",
+      title: "Marina-Blick",
+      description: "Wunderschöner Blick auf die Marina bei Sonnenuntergang",
       image_url: "https://images.unsplash.com/photo-1540946485063-a40da27545f7?auto=format&fit=crop&q=80&w=2070",
       created_at: new Date().toISOString()
     },
     {
       id: 2,
-      title: "Boat Maintenance",
-      description: "Skilled technicians working on boat repairs",
+      title: "Bootswartung",
+      description: "Erfahrene Techniker bei Bootsreparaturen",
       image_url: "https://images.unsplash.com/photo-1584196287766-7ca8cf01bbf2?auto=format&fit=crop&q=80&w=2070",
       created_at: new Date().toISOString()
     },
     {
       id: 3,
-      title: "Mosel River",
-      description: "Scenic view of the Mosel river",
+      title: "Moselfluss",
+      description: "Malerischer Blick auf die Mosel",
       image_url: "https://images.unsplash.com/photo-1620064881843-23dbd255e0e1?auto=format&fit=crop&q=80&w=2070",
       created_at: new Date().toISOString()
     },
     {
       id: 4,
-      title: "Sailing Experience",
-      description: "Enjoying a day on the water",
+      title: "Segelerlebnis",
+      description: "Einen Tag auf dem Wasser genießen",
       image_url: "https://images.unsplash.com/photo-1531339751961-324b4c494be8?auto=format&fit=crop&q=80&w=2070",
       created_at: new Date().toISOString()
     }
@@ -70,9 +70,9 @@ export function GallerySection() {
     <section id="gallery" className="section">
       <div className="container">
         <div className="text-center mb-12">
-          <h2 className="h2 text-marina mb-4">Gallery</h2>
+          <h2 className="h2 text-marina mb-4">Galerie</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Explore our marina through these images showcasing our facilities, services, and the beautiful surroundings of Güls an der Mosel.
+            Entdecken Sie unsere Marina durch diese Bilder, die unsere Einrichtungen, Dienstleistungen und die wunderschöne Umgebung von Güls an der Mosel zeigen.
           </p>
         </div>
 
@@ -130,7 +130,7 @@ export function GallerySection() {
             <div className="max-w-4xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
               <img 
                 src={selectedImage} 
-                alt={selectedCaption || 'Gallery image'} 
+                alt={selectedCaption || 'Galerie-Bild'} 
                 className="max-w-full max-h-[80vh] object-contain"
               />
               {selectedCaption && (

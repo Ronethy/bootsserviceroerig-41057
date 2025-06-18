@@ -11,7 +11,7 @@ import {
   Settings,
   Anchor,
   DollarSign,
-  Footer
+  Layout
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -77,7 +77,7 @@ export function Dashboard() {
       id: 'footer',
       name: 'Footer-Verwaltung',
       description: 'Bearbeiten Sie Footer-Inhalte und Social Media Links',
-      icon: <Footer className="h-5 w-5" />,
+      icon: <Layout className="h-5 w-5" />,
       component: <FooterManagement />
     },
     {

@@ -10,7 +10,8 @@ import {
   Phone, 
   Settings,
   Anchor,
-  DollarSign
+  DollarSign,
+  Footer
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,6 +23,7 @@ import { GalleryManagement } from './GalleryManagement';
 import { ServicesManagement } from './ServicesManagement';
 import { ForSaleManagement } from './ForSaleManagement';
 import { ContactManagement } from './ContactManagement';
+import { FooterManagement } from './FooterManagement';
 import { UserManagement } from './UserManagement';
 
 export function Dashboard() {
@@ -70,6 +72,13 @@ export function Dashboard() {
       description: 'Aktualisieren Sie Kontaktdaten und Öffnungszeiten',
       icon: <Phone className="h-5 w-5" />,
       component: <ContactManagement />
+    },
+    {
+      id: 'footer',
+      name: 'Footer-Verwaltung',
+      description: 'Bearbeiten Sie Footer-Inhalte und Social Media Links',
+      icon: <Footer className="h-5 w-5" />,
+      component: <FooterManagement />
     },
     {
       id: 'users',

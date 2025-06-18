@@ -1,3 +1,4 @@
+
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration
@@ -66,6 +67,20 @@ export type ContactInfo = {
   email: string;
   hours: string;
   location_image?: string;
+  created_at: string;
+};
+
+export type FooterContent = {
+  id: number;
+  company_name: string;
+  company_description: string;
+  facebook_url?: string;
+  instagram_url?: string;
+  email_url?: string;
+  copyright_text: string;
+  privacy_link_text: string;
+  terms_link_text: string;
+  imprint_link_text: string;
   created_at: string;
 };
 
@@ -165,6 +180,62 @@ export async function getContactInfo() {
   }
   
   return data as ContactInfo;
+}
+
+// Footer content
+export async function getFooterContent() {
+  const { data, error } = await supabase
+    .from('footer_content')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+  
+  if (error) {
+    console.error('Error fetching footer content:', error);
+    return null;
+  }
+  
+  return data as FooterContent;
+}
+
+export async function saveFooterContent(footerData: Partial<FooterContent>) {
+  const { data: existingData } = await supabase
+    .from('footer_content')
+    .select('id')
+    .limit(1)
+    .single();
+
+  if (existingData) {
+    // Update existing record
+    const { data, error } = await supabase
+      .from('footer_content')
+      .update(footerData)
+      .eq('id', existingData.id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error updating footer content:', error);
+      throw error;
+    }
+
+    return data;
+  } else {
+    // Insert new record
+    const { data, error } = await supabase
+      .from('footer_content')
+      .insert([footerData])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error inserting footer content:', error);
+      throw error;
+    }
+
+    return data;
+  }
 }
 
 // File upload to Supabase Storage

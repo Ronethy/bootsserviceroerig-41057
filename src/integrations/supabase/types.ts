@@ -63,6 +63,48 @@ export type Database = {
         }
         Relationships: []
       }
+      footer_content: {
+        Row: {
+          company_description: string
+          company_name: string
+          copyright_text: string
+          created_at: string
+          email_url: string | null
+          facebook_url: string | null
+          id: number
+          imprint_link_text: string
+          instagram_url: string | null
+          privacy_link_text: string
+          terms_link_text: string
+        }
+        Insert: {
+          company_description?: string
+          company_name?: string
+          copyright_text?: string
+          created_at?: string
+          email_url?: string | null
+          facebook_url?: string | null
+          id?: number
+          imprint_link_text?: string
+          instagram_url?: string | null
+          privacy_link_text?: string
+          terms_link_text?: string
+        }
+        Update: {
+          company_description?: string
+          company_name?: string
+          copyright_text?: string
+          created_at?: string
+          email_url?: string | null
+          facebook_url?: string | null
+          id?: number
+          imprint_link_text?: string
+          instagram_url?: string | null
+          privacy_link_text?: string
+          terms_link_text?: string
+        }
+        Relationships: []
+      }
       for_sale_items: {
         Row: {
           created_at: string | null

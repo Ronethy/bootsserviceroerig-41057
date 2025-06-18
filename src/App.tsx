@@ -18,6 +18,7 @@ import { GalleryManagement } from "./components/admin/GalleryManagement";
 import { ServicesManagement } from "./components/admin/ServicesManagement";
 import { ForSaleManagement } from "./components/admin/ForSaleManagement";
 import { ContactManagement } from "./components/admin/ContactManagement";
+import { FooterManagement } from "./components/admin/FooterManagement";
 import { UserManagement } from "./components/admin/UserManagement";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="services" element={<ServicesManagement />} />
               <Route path="for-sale" element={<ForSaleManagement />} />
               <Route path="contact" element={<ContactManagement />} />
+              <Route path="footer" element={<FooterManagement />} />
               <Route path="users" element={<UserManagement />} />
             </Route>
             <Route path="*" element={<NotFound />} />

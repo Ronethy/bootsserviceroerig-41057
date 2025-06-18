@@ -1,12 +1,17 @@
 
 import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { getContactInfo } from '@/lib/supabase';
+import { getContactInfo, getFooterContent } from '@/lib/supabase';
 
 export function Footer() {
   const { data: contactInfo } = useQuery({
     queryKey: ['contactInfo'],
     queryFn: getContactInfo
+  });
+
+  const { data: footerContent } = useQuery({
+    queryKey: ['footerContent'],
+    queryFn: getFooterContent
   });
 
   const currentYear = new Date().getFullYear();
@@ -17,20 +22,28 @@ export function Footer() {
       <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-2xl font-display font-bold mb-4">Mosel Marina</h3>
+            <h3 className="text-2xl font-display font-bold mb-4">
+              {footerContent?.company_name || 'Mosel Marina'}
+            </h3>
             <p className="mb-4">
-              Ihr vertrauensvoller Marina-Partner in Güls an der Mosel
+              {footerContent?.company_description || 'Ihr vertrauensvoller Marina-Partner in Güls an der Mosel'}
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-white hover:text-marina-accent">
-                <Facebook size={24} />
-              </a>
-              <a href="#" className="text-white hover:text-marina-accent">
-                <Instagram size={24} />
-              </a>
-              <a href={`mailto:${contactInfo?.email || 'info@mosel-marina.de'}`} className="text-white hover:text-marina-accent">
-                <Mail size={24} />
-              </a>
+              {footerContent?.facebook_url && (
+                <a href={footerContent.facebook_url} className="text-white hover:text-marina-accent" target="_blank" rel="noopener noreferrer">
+                  <Facebook size={24} />
+                </a>
+              )}
+              {footerContent?.instagram_url && (
+                <a href={footerContent.instagram_url} className="text-white hover:text-marina-accent" target="_blank" rel="noopener noreferrer">
+                  <Instagram size={24} />
+                </a>
+              )}
+              {footerContent?.email_url && (
+                <a href={`mailto:${footerContent.email_url}`} className="text-white hover:text-marina-accent">
+                  <Mail size={24} />
+                </a>
+              )}
             </div>
           </div>
           
@@ -79,11 +92,11 @@ export function Footer() {
         </div>
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
-          <p>© {currentYear} Mosel Marina in Güls. Alle Rechte vorbehalten.</p>
+          <p>© {currentYear} {footerContent?.company_name || 'Mosel Marina in Güls'}. {footerContent?.copyright_text || 'Alle Rechte vorbehalten.'}</p>
           <div className="mt-4 flex justify-center space-x-4 text-sm">
-            <a href="#" className="hover:underline">Datenschutz</a>
-            <a href="#" className="hover:underline">Nutzungsbedingungen</a>
-            <a href="#" className="hover:underline">Impressum</a>
+            <a href="#" className="hover:underline">{footerContent?.privacy_link_text || 'Datenschutz'}</a>
+            <a href="#" className="hover:underline">{footerContent?.terms_link_text || 'Nutzungsbedingungen'}</a>
+            <a href="#" className="hover:underline">{footerContent?.imprint_link_text || 'Impressum'}</a>
           </div>
         </div>
       </div>

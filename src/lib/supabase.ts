@@ -93,14 +93,14 @@ export async function getHeroContent() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
   
   if (error) {
     console.error('Error fetching hero content:', error);
     return null;
   }
   
-  return data as HeroContent;
+  return data as HeroContent | null;
 }
 
 // About content
@@ -110,14 +110,14 @@ export async function getAboutContent() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
   
   if (error) {
     console.error('Error fetching about content:', error);
     return null;
   }
   
-  return data as AboutContent;
+  return data as AboutContent | null;
 }
 
 // Gallery images
@@ -172,14 +172,14 @@ export async function getContactInfo() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
   
   if (error) {
     console.error('Error fetching contact info:', error);
     return null;
   }
   
-  return data as ContactInfo;
+  return data as ContactInfo | null;
 }
 
 // Footer content
@@ -189,14 +189,14 @@ export async function getFooterContent() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
   
   if (error) {
     console.error('Error fetching footer content:', error);
     return null;
   }
   
-  return data as FooterContent;
+  return data as FooterContent | null;
 }
 
 export async function saveFooterContent(footerData: Partial<FooterContent>) {
@@ -204,7 +204,7 @@ export async function saveFooterContent(footerData: Partial<FooterContent>) {
     .from('footer_content')
     .select('id')
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (existingData) {
     // Update existing record
@@ -213,7 +213,7 @@ export async function saveFooterContent(footerData: Partial<FooterContent>) {
       .update(footerData)
       .eq('id', existingData.id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error('Error updating footer content:', error);
@@ -227,7 +227,7 @@ export async function saveFooterContent(footerData: Partial<FooterContent>) {
       .from('footer_content')
       .insert([footerData])
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error('Error inserting footer content:', error);

@@ -18,10 +18,24 @@ export function UserManagement() {
     password: '',
   });
 
-  // Custom function to fetch users
+  // Custom function to fetch users via edge function
   const fetchUsers = async () => {
-    const { data, error } = await supabase.auth.admin.listUsers();
-    if (error) throw error;
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) throw new Error('Not authenticated');
+
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://bfnvngjthcdbmthluwhi.supabase.co'}/functions/v1/admin-users?action=list`, {
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to fetch users');
+    }
+
+    const data = await response.json();
     return data.users as User[];
   };
 
@@ -32,13 +46,24 @@ export function UserManagement() {
 
   const createUserMutation = useMutation({
     mutationFn: async (userData: { email: string, password: string }) => {
-      const { data, error } = await supabase.auth.admin.createUser({
-        email: userData.email,
-        password: userData.password,
-        email_confirm: true, // Auto-confirm email
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Not authenticated');
+
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://bfnvngjthcdbmthluwhi.supabase.co'}/functions/v1/admin-users?action=create`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
       });
-      
-      if (error) throw error;
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create user');
+      }
+
+      const data = await response.json();
       return data;
     },
     onSuccess: () => {
@@ -61,9 +86,22 @@ export function UserManagement() {
 
   const deleteUserMutation = useMutation({
     mutationFn: async (userId: string) => {
-      const { error } = await supabase.auth.admin.deleteUser(userId);
-      
-      if (error) throw error;
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Not authenticated');
+
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://bfnvngjthcdbmthluwhi.supabase.co'}/functions/v1/admin-users?action=delete&userId=${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete user');
+      }
+
       return true;
     },
     onSuccess: () => {

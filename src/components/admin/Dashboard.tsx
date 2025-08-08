@@ -11,7 +11,8 @@ import {
   Settings,
   Anchor,
   DollarSign,
-  Layout
+  Layout,
+  Scale
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,6 +25,7 @@ import { ServicesManagement } from './ServicesManagement';
 import { ForSaleManagement } from './ForSaleManagement';
 import { ContactManagement } from './ContactManagement';
 import { FooterManagement } from './FooterManagement';
+import { LegalManagement } from './LegalManagement';
 import { UserManagement } from './UserManagement';
 
 export function Dashboard() {
@@ -79,6 +81,13 @@ export function Dashboard() {
       description: 'Bearbeiten Sie Footer-Inhalte und Social Media Links',
       icon: <Layout className="h-5 w-5" />,
       component: <FooterManagement />
+    },
+    {
+      id: 'legal',
+      name: 'Rechtliche Inhalte',
+      description: 'Verwalten Sie Impressum, Datenschutz und AGB',
+      icon: <Scale className="h-5 w-5" />,
+      component: <LegalManagement />
     },
     {
       id: 'users',

@@ -10,6 +10,9 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import NotFound from "./pages/NotFound";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
+import ImprintPage from "./pages/ImprintPage";
 
 // Import admin management pages
 import { HeroManagement } from "./components/admin/HeroManagement";
@@ -19,6 +22,7 @@ import { ServicesManagement } from "./components/admin/ServicesManagement";
 import { ForSaleManagement } from "./components/admin/ForSaleManagement";
 import { ContactManagement } from "./components/admin/ContactManagement";
 import { FooterManagement } from "./components/admin/FooterManagement";
+import { LegalManagement } from "./components/admin/LegalManagement";
 import { UserManagement } from "./components/admin/UserManagement";
 
 const queryClient = new QueryClient();
@@ -33,6 +37,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/imprint" element={<ImprintPage />} />
             <Route path="/admin" element={<AdminPage />}>
               <Route index element={<AdminDashboardPage />} />
               <Route path="hero" element={<HeroManagement />} />
@@ -42,6 +49,7 @@ const App = () => (
               <Route path="for-sale" element={<ForSaleManagement />} />
               <Route path="contact" element={<ContactManagement />} />
               <Route path="footer" element={<FooterManagement />} />
+              <Route path="legal" element={<LegalManagement />} />
               <Route path="users" element={<UserManagement />} />
             </Route>
             <Route path="*" element={<NotFound />} />

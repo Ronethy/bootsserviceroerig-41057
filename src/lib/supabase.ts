@@ -84,6 +84,15 @@ export type FooterContent = {
   created_at: string;
 };
 
+export type LegalContent = {
+  id: number;
+  type: 'privacy' | 'terms' | 'imprint';
+  title: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
 // API functions for data fetching
 
 // Hero content
@@ -231,6 +240,78 @@ export async function saveFooterContent(footerData: Partial<FooterContent>) {
 
     if (error) {
       console.error('Error inserting footer content:', error);
+      throw error;
+    }
+
+    return data;
+  }
+}
+
+// Legal content
+export async function getLegalContent(type: 'privacy' | 'terms' | 'imprint') {
+  const { data, error } = await supabase
+    .from('legal_content')
+    .select('*')
+    .eq('type', type)
+    .maybeSingle();
+  
+  if (error) {
+    console.error(`Error fetching ${type} content:`, error);
+    return null;
+  }
+  
+  return data as LegalContent | null;
+}
+
+export async function getAllLegalContent() {
+  const { data, error } = await supabase
+    .from('legal_content')
+    .select('*')
+    .order('type');
+  
+  if (error) {
+    console.error('Error fetching legal content:', error);
+    return [];
+  }
+  
+  return data as LegalContent[];
+}
+
+export async function saveLegalContent(legalData: Partial<LegalContent>) {
+  const { data: existingData } = await supabase
+    .from('legal_content')
+    .select('id')
+    .eq('type', legalData.type)
+    .maybeSingle();
+
+  if (existingData) {
+    // Update existing record
+    const { data, error } = await supabase
+      .from('legal_content')
+      .update({
+        title: legalData.title,
+        content: legalData.content
+      })
+      .eq('id', existingData.id)
+      .select()
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error updating legal content:', error);
+      throw error;
+    }
+
+    return data;
+  } else {
+    // Insert new record
+    const { data, error } = await supabase
+      .from('legal_content')
+      .insert([legalData])
+      .select()
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error inserting legal content:', error);
       throw error;
     }
 

@@ -1,6 +1,7 @@
 
 import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 import { getContactInfo, getFooterContent } from '@/lib/supabase';
 
 export function Footer() {
@@ -94,9 +95,9 @@ export function Footer() {
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
           <p>© {currentYear} {footerContent?.company_name || 'Mosel Marina in Güls'}. {footerContent?.copyright_text || 'Alle Rechte vorbehalten.'}</p>
           <div className="mt-4 flex justify-center space-x-4 text-sm">
-            <a href="#" className="hover:underline">{footerContent?.privacy_link_text || 'Datenschutz'}</a>
-            <a href="#" className="hover:underline">{footerContent?.terms_link_text || 'Nutzungsbedingungen'}</a>
-            <a href="#" className="hover:underline">{footerContent?.imprint_link_text || 'Impressum'}</a>
+            <Link to="/privacy" className="hover:underline">{footerContent?.privacy_link_text || 'Datenschutz'}</Link>
+            <Link to="/terms" className="hover:underline">{footerContent?.terms_link_text || 'Nutzungsbedingungen'}</Link>
+            <Link to="/imprint" className="hover:underline">{footerContent?.imprint_link_text || 'Impressum'}</Link>
           </div>
         </div>
       </div>

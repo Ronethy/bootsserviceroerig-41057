@@ -188,6 +188,33 @@ export type Database = {
         }
         Relationships: []
       }
+      legal_content: {
+        Row: {
+          content: string
+          created_at: string
+          id: number
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          id?: number
+          title?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: number
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           created_at: string | null

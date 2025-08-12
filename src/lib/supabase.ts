@@ -177,13 +177,20 @@ export async function getForSaleItems() {
 // Contact info (rate-limited public endpoint)
 export async function getContactInfo() {
   try {
-    const { data, error } = await supabase.functions.invoke('contact-info');
-    
-    if (error) {
-      console.error('Error fetching contact info:', error);
+    // Use fetch directly to make a GET request to the edge function
+    const response = await fetch(`${supabaseUrl}/functions/v1/contact-info`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${supabaseAnonKey}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error('Error fetching contact info:', response.statusText);
       return null;
     }
-    
+
+    const data = await response.json();
     return data as ContactInfo | null;
   } catch (error) {
     console.error('Error calling contact info function:', error);

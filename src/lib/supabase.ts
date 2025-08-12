@@ -174,21 +174,21 @@ export async function getForSaleItems() {
   return data as ForSaleItem[];
 }
 
-// Contact info
+// Contact info (rate-limited public endpoint)
 export async function getContactInfo() {
-  const { data, error } = await supabase
-    .from('contact_info')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-  
-  if (error) {
-    console.error('Error fetching contact info:', error);
+  try {
+    const { data, error } = await supabase.functions.invoke('contact-info');
+    
+    if (error) {
+      console.error('Error fetching contact info:', error);
+      return null;
+    }
+    
+    return data as ContactInfo | null;
+  } catch (error) {
+    console.error('Error calling contact info function:', error);
     return null;
   }
-  
-  return data as ContactInfo | null;
 }
 
 // Footer content

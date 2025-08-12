@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getContactInfo, supabase, ContactInfo, uploadFile } from '@/lib/supabase';
+import { getContactInfoAdmin, saveContactInfo, ContactInfo, uploadFile } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
 
 export function useContactData() {
@@ -14,8 +14,8 @@ export function useContactData() {
     isLoading, 
     isError 
   } = useQuery({
-    queryKey: ['contactInfo'],
-    queryFn: getContactInfo
+    queryKey: ['contactInfoAdmin'],
+    queryFn: getContactInfoAdmin
   });
 
   const saveContactMutation = useMutation({
@@ -27,33 +27,10 @@ export function useContactData() {
         imageUrl = await uploadFile(imageFile, 'location_images', 'contact');
       }
 
-      let result;
-      
-      if (contactInfo) {
-        // Update existing
-        const { data: updateData, error: updateError } = await supabase
-          .from('contact_info')
-          .update({...data, location_image: imageUrl})
-          .eq('id', contactInfo.id)
-          .select();
-        
-        if (updateError) throw updateError;
-        result = updateData[0];
-      } else {
-        // Insert new
-        const { data: insertData, error: insertError } = await supabase
-          .from('contact_info')
-          .insert([{...data, location_image: imageUrl}])
-          .select();
-        
-        if (insertError) throw insertError;
-        result = insertData[0];
-      }
-      
-      return result;
+      return await saveContactInfo({...data, location_image: imageUrl});
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contactInfo'] });
+      queryClient.invalidateQueries({ queryKey: ['contactInfoAdmin'] });
       toast({
         title: 'Success',
         description: 'Contact information saved successfully',

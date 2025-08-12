@@ -191,6 +191,62 @@ export async function getContactInfo() {
   }
 }
 
+// Admin contact info functions (direct database access)
+export async function getContactInfoAdmin() {
+  const { data, error } = await supabase
+    .from('contact_info')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  
+  if (error) {
+    console.error('Error fetching contact info:', error);
+    return null;
+  }
+  
+  return data as ContactInfo | null;
+}
+
+export async function saveContactInfo(contactData: Partial<ContactInfo>) {
+  const { data: existingData } = await supabase
+    .from('contact_info')
+    .select('id')
+    .limit(1)
+    .maybeSingle();
+
+  if (existingData) {
+    // Update existing record
+    const { data, error } = await supabase
+      .from('contact_info')
+      .update(contactData)
+      .eq('id', existingData.id)
+      .select()
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error updating contact info:', error);
+      throw error;
+    }
+
+    return data;
+  } else {
+    // Insert new record
+    const { data, error } = await supabase
+      .from('contact_info')
+      .insert([contactData])
+      .select()
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error inserting contact info:', error);
+      throw error;
+    }
+
+    return data;
+  }
+}
+
 // Footer content
 export async function getFooterContent() {
   const { data, error } = await supabase

@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getServices } from '@/lib/supabase';
 import { Anchor, Wrench, ShieldCheck, LifeBuoy } from 'lucide-react';
@@ -72,7 +73,7 @@ export function ServicesSection() {
     return (
       <div 
         key={service.id} 
-        className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full cursor-pointer"
+        className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-100 flex flex-col h-full cursor-pointer group"
         onClick={() => setSelectedService(service)}
       >
         {hasImages ? (
@@ -83,14 +84,18 @@ export function ServicesSection() {
             />
           </div>
         ) : (
-          <div className="flex justify-center items-center p-8 bg-marina/5">
+          <div className="flex justify-center items-center p-8 bg-marina/5 group-hover:bg-marina/10 transition-colors duration-300">
             {getIconComponent(service.icon)}
           </div>
         )}
-        <div className="p-6">
+        <div className="p-6 flex flex-col items-center gap-2">
           <h3 className="text-xl font-display font-semibold text-marina-dark text-center">
             {service.title}
           </h3>
+          <div className="flex items-center gap-1 text-marina text-sm font-medium group-hover:gap-2 transition-all duration-300">
+            <span>Mehr erfahren</span>
+            <ChevronRight className="h-4 w-4" />
+          </div>
         </div>
       </div>
     );

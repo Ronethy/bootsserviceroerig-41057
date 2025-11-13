@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Ship } from 'lucide-react';
 
@@ -101,9 +101,9 @@ export function LoginForm() {
           </div>
           
           <div className="text-center text-sm">
-            <a href="/" className="text-marina hover:text-marina-light">
+            <Link to="/" className="text-marina hover:text-marina-light">
               Zurück zur Website
-            </a>
+            </Link>
           </div>
         </form>
       </div>

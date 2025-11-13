@@ -89,6 +89,8 @@ export function UserManagement() {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) throw new Error('Not authenticated');
 
+      console.log('Attempting to delete user:', userId);
+      
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL || 'https://bfnvngjthcdbmthluwhi.supabase.co'}/functions/v1/admin-users?action=delete&userId=${userId}`, {
         method: 'DELETE',
         headers: {
@@ -97,11 +99,16 @@ export function UserManagement() {
         },
       });
 
+      console.log('Delete response status:', response.status);
+
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('Delete error:', errorData);
         throw new Error(errorData.error || 'Failed to delete user');
       }
 
+      const result = await response.json();
+      console.log('Delete successful:', result);
       return true;
     },
     onSuccess: () => {
@@ -131,8 +138,12 @@ export function UserManagement() {
   };
 
   const handleDelete = (userId: string) => {
+    console.log('Delete button clicked for user:', userId);
     if (window.confirm('Are you sure you want to delete this user?')) {
+      console.log('Delete confirmed, calling mutation');
       deleteUserMutation.mutate(userId);
+    } else {
+      console.log('Delete cancelled by user');
     }
   };
 
